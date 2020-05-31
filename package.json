@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "start": "vue-cli-service serve"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --open --hot"
   },
   "dependencies": {
     "leaflet": "^1.6.0",
