@@ -16,7 +16,8 @@
     "nuxt-leaflet": "0.0.21",
     "vue": "2.6.10",
     "vue-resource": "^1.5.1",
-    "vue2-leaflet": "^2.5.2"
+    "vue2-leaflet": "^2.5.2",
+    "@vue/cli-service": "4.4.1"
   },
   "browserslist": [
     "> 1%",
