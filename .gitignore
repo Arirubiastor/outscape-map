@@ -1,9 +1,5 @@
 .DS_Store
 node_modules/
-<<<<<<< HEAD
-
-=======
->>>>>>> 6650c97d147c517bd95455b0e503761238b8835b
 npm-debug.log
 yarn-error.log
 
@@ -13,3 +9,4 @@ yarn-error.log
 *.ntvs*
 *.njsproj
 *.sln
+"node_modules" 
