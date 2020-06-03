@@ -29,7 +29,6 @@
     "vue-resource": "^1.5.1",
     "vue-template-compiler": "2.6.10",
     "vue2-leaflet": "^2.5.2",
-    "@vue/cli-service": "4.4.1",
     "webpack": "^3.6.0"
   },
   "browserslist": [
