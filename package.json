@@ -11,10 +11,8 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "vue-cli-service build",
-    "start": "node server.js",
-    "heroku-postinstall": "npm install && npm run build",
-    "postinstall": "npm run build"
+    "postinstall": "vue-cli-service build",
+    "start": "node server.js"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
