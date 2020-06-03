@@ -2,6 +2,10 @@
   "name": "outscape-proyecto",
   "description": "A Vue.js project",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.16.x",
+    "npm": "6.x"
+  },
   "author": "Ariana Rubi <arianarubigo@gmail.com>",
   "license": "MIT",
   "private": true,
