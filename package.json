@@ -11,7 +11,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "postinstall": "vue-cli-service build",
+    
     "start": "node server.js"
   },
   "dependencies": {
