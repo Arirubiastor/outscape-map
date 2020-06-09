@@ -15,7 +15,7 @@ export default {
   name: "App",
   components: {
     AppMap,
-    LMenu,
+    LMenu
     // GridMap
   },
   data: function() {
