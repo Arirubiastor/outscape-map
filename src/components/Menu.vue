@@ -163,7 +163,7 @@ export default {
 
   margin-right: 30px;
   width: 300px;
-  padding: 5px;
+  padding: 6px;
 }
 
 #comments {
