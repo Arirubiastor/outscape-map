@@ -1,6 +1,7 @@
 <template>
   <div class="main-menu">
     <div>
+      <!-- <input type="text" v-model="search" placeholder="search star"> -->
       <button class="add-button" @click="toggle">Add Star</button>
       <form class="form_add-star" v-if="active">
         <label>Name:</label>
@@ -45,7 +46,9 @@
         </select>
         <br />
         <input class="submit-button" type="submit" value="Sumbit" @click="submit" />
-        <!-- <div>Your data: {{ temporalForm }}</div> -->
+        <!-- <div>Your data: {{ temporalForm }}</div>
+        <div>New Lat: {{ LATNEG }}</div>
+        <div>Lat Neg: {{ latNeg }}</div> -->
       </form>
     </div>
     <!-- <div>
@@ -73,6 +76,8 @@ export default {
       //   temporalForm: {
       //     body: ""
       //   },
+      latNeg: "",
+      search: "",
       temporalForm: {
         body: {
           NAME: "",
@@ -100,6 +105,14 @@ export default {
       // newStar: {}
     };
   },
+  computed: {
+    LATNEG: function() {
+      return this.latNeg * -1
+    },
+    filteredStars: function() {
+      return this.stars.filter((star))
+    }
+  },
 
   methods: {
     toggle() {
@@ -116,6 +129,10 @@ export default {
     //   console.log(temporalForm1);
     //   this.temporalForm = "";
     // },
+
+    newTemporalForm() {
+      return 
+    },
 
     submit() {
       this.$http
@@ -154,6 +171,7 @@ export default {
 
 .add-button {
   margin-right: 25px;
+  cursor: pointer;
 }
 
 .form_add-star {
