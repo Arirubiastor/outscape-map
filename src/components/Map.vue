@@ -7,16 +7,52 @@
     <l-tile-layer :url="url"></l-tile-layer>
     <!-- <l-image-overlay :url="url" :bounds="bounds" /> -->
     <l-grid-layer class="grid" :tile-component="tileComponent"></l-grid-layer>
-    <l-marker v-for="star in stars" :key="star.id" :lat-lng="star">
+    
+    <!-- STARS MAP WITH ORIGINAL COORDS (wrong one, it has to be rotated 180 deg) -->
+    <!-- <l-marker v-for="star in stars" :key="star.id" :lat-lng="star">
       <div v-if="star.status==='A'">
+        <l-icon id="yellow-icon" :icon-size="[25, 25]" icon-url="https://image.flaticon.com/icons/svg/304/304378.svg"></l-icon>
+      </div>
+      <div v-else-if="star.status==='E'">
+        <l-icon id="red-icon" :icon-size="[25, 25]" icon-url="https://image.flaticon.com/icons/svg/304/304341.svg"></l-icon>
+      </div>
+      <div v-else-if="star.status==='N'">
+        <l-icon id="blue-icon" :icon-size="[25, 25]" icon-url="https://image.flaticon.com/icons/svg/304/304267.svg"></l-icon>
+      </div>
+      <div v-else>
+        <l-icon id="green-icon" :icon-size="[25, 25]" icon-url="https://image.flaticon.com/icons/svg/304/304304.svg"></l-icon>
+      </div>
+      <l-popup class="popup">
+        <em class="popup-bold">Name: </em>{{ star.name }}<br />
+        <em class="popup-bold">Longitud: </em>{{ star.lng }}<br />
+        <em class="popup-bold">Latitud: </em>{{ star.lat }}<br />
+        <em class="popup-bold">Number of Planets: </em>{{ star.planetCount }}<br />
+        <em class="popup-bold">Local Population 1: </em>{{ star.localPop1 }}<br />
+        <em class="popup-bold">Planet 1: </em>{{ star.planet1 }}<br />
+        <em class="popup-bold">Local Population 2: </em>{{ star.localPop2 }}<br />
+        <em class="popup-bold">Planet 2: </em>{{ star.planet2 }}<br />
+        <em class="popup-bold">Local Population 3:</em>{{ star.localPop3 }}<br />
+        <em class="popup-bold">Planet 3: </em>{{ star.planet3 }}<br />
+        <em class="popup-bold">System Owner: </em>{{ star.systemOwner }}<br />
+        <em class="popup-bold">Radar: </em>{{ star.radar }}<br />
+        <em class="popup-bold">Comments: </em>{{ star.comments }}<br />
+        <em class="popup-bold">Added by: </em>{{ star.addedBy }}<br />
+        <em class="popup-bold">Date: </em>{{ star.date }}<br />
+        <em class="popup-bold">Status: </em>{{ star.status }}<br />
+      </l-popup>
+    </l-marker> -->
+
+    <!-- INVERTED COORDS NEW STARS MAP -->
+    <l-marker v-for="(newCoords, i) in InvertedCoords" :key="i" :lat-lng="newCoords">
+      <div v-if="stars[i].status === 'ALLY'">
         <l-icon
           id="yellow-icon"
           :icon-size="[25, 25]"
-          icon-url="https://image.flaticon.com/icons/svg/304/304378.svg">
-          </l-icon>
-          <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
+          icon-url="https://image.flaticon.com/icons/svg/304/304378.svg"
+        ></l-icon>
+        <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
       </div>
-      <div v-else-if="star.status==='E'">
+      <div v-else-if="stars[i].status === 'ENEMY'">
         <l-icon
           id="red-icon"
           :icon-size="[25, 25]"
@@ -24,58 +60,70 @@
         ></l-icon>
         <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
       </div>
-      <div v-else-if="star.status==='N'">
+      <div v-else-if="stars[i].status === 'NEUTRAL'">
         <l-icon
           id="blue-icon"
           :icon-size="[25, 25]"
-          icon-url="https://image.flaticon.com/icons/svg/304/304267.svg">
-          </l-icon>
-          <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
+          icon-url="https://image.flaticon.com/icons/svg/304/304267.svg"
+        ></l-icon>
+        <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
       </div>
       <div v-else>
-        <l-icon
+        <l-icon 
           id="green-icon"
           :icon-size="[25, 25]"
-          icon-url="https://image.flaticon.com/icons/svg/304/304304.svg">
-          </l-icon>
-          <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
+          icon-url="https://image.flaticon.com/icons/svg/304/304304.svg"
+        ></l-icon>
+        <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
       </div>
       <!-- <l-icon :icon-size="[32, 37]" icon-url="/images/star.png"></l-icon> -->
       <l-popup class="popup">
-        <em class="popup-bold">Name:</em>{{ star.name }}
-        <br />
-        <em class="popup-bold">Longitud:</em>{{ star.lng }}
-        <br />
-        <em class="popup-bold">Latitud:</em>{{ star.lat }}
-        <br />
-        <em class="popup-bold">Number of Planets:</em>{{ star.planetCount }}
-        <br />
-        <em class="popup-bold">Local Population 1:</em>{{ star.localPop1 }}
-        <br />
-        <em class="popup-bold">Planet 1:</em>{{ star.planet1 }}
-        <br />
-        <em class="popup-bold">Local Population 2:</em>{{ star.localPop2 }}
-        <br />
-        <em class="popup-bold">Planet 2:</em>{{ star.planet2 }}
-        <br />
-        <em class="popup-bold">Local Population 3:</em>{{ star.localPop3 }}
-        <br />
-        <em class="popup-bold">Planet 3:</em>{{ star.planet3 }}
-        <br />
-        <em class="popup-bold">System Owner:</em>{{ star.systemOwner }}
-        <br />
-        <em class="popup-bold">Radar:</em>{{ star.radar }}
-        <br />
-        <em class="popup-bold">Comments:</em>{{ star.comments }}
-        <br />
-        <em class="popup-bold">Added by:</em>{{ star.addedBy }}
-        <br />
-        <em class="popup-bold">Date:</em>{{ star.date }}
-        <br />
-        <em class="popup-bold">Status:</em>{{ star.status }}
-        <br />
+        <em class="popup-bold">Id: </em>{{ newCoords.id }}<br />
+        <!-- Lat: {{ newCoords.lat }},
+        Lng: {{ newCoords.lng }},<br> -->
+        <em class="popup-bold">Name: </em>{{ stars[i].name }}<br />
+        <em class="popup-bold">Longitud: </em>{{ stars[i].lng }}<br />
+        <em class="popup-bold">Latitud: </em>{{ stars[i].lat }}<br />
+        <em class="popup-bold">Number of Planets: </em>{{ stars[i].planetCount }}<br />
+        <em class="popup-bold">Local Population 1: </em>{{ stars[i].localPop1 }}<br />
+        <em class="popup-bold">Planet 1: </em>{{ stars[i].planet1 }}<br />
+        <em class="popup-bold">Local Population 2: </em>{{ stars[i].localPop2 }}<br />
+        <em class="popup-bold">Planet 2: </em>{{ stars[i].planet2 }}<br />
+        <em class="popup-bold">Local Population 3:</em>{{ stars[i].localPop3 }}<br />
+        <em class="popup-bold">Planet 3: </em>{{ stars[i].planet3 }}<br />
+        <em class="popup-bold">System Owner: </em>{{ stars[i].systemOwner }}<br />
+        <em class="popup-bold">Radar: </em>{{ stars[i].radar }}<br />
+        <em class="popup-bold">Comments: </em>{{ stars[i].comments }}<br />
+        <em class="popup-bold">Added by: </em>{{ stars[i].addedBy }}<br />
+        <em class="popup-bold">Date: </em>{{ stars[i].date }}<br />
+        <em class="popup-bold">Status: </em>{{ stars[i].status }}<br />
+        <!-- TEST: {{ InvertedCoords }} -->
       </l-popup>
     </l-marker>
+    <div v-for="(newCoords, i) in InvertedCoords" :key="'A' + i"><!-- 'A' + i to avoid duplicate id -->
+      <l-circle v-if="stars[i].radar === '1'"
+        :lat-lng="newCoords" 
+        :radius="radar.radius1"
+        :color="radar.color"
+        :fillColor="radar.fillColor"
+        :weight="radar.weight">
+      </l-circle>
+      <l-circle v-if="stars[i].radar === '1Har'"
+        :lat-lng="newCoords" 
+        :radius="radar.radius1Har"
+        :color="radar.color"
+        :fillColor="radar.fillColor"
+        :weight="radar.weight">
+      </l-circle>
+      <l-circle v-if="stars[i].radar === '2Har'"
+        :lat-lng="newCoords" 
+        :radius="radar.radius2Har"
+        :color="radar.color"
+        :fillColor="radar.fillColor"
+        :weight="radar.weight">
+      </l-circle>
+    </div>
+
     <!-- <l-polyline :lat-lngs="travel" /> -->
   </l-map>
 </body>
@@ -92,7 +140,8 @@ import {
   LPopup,
   LPolyline,
   LIcon,
-  LGridLayer
+  LGridLayer,
+  LCircle
 } from "vue2-leaflet";
 
 export default {
@@ -105,7 +154,8 @@ export default {
     LPopup,
     LPolyline,
     LIcon,
-    LGridLayer
+    LGridLayer,
+    LCircle
   },
 
   props: {
@@ -131,6 +181,20 @@ export default {
         iconSize: [32, 37],
         iconAnchor: [16, 37]
       },
+      radar: {
+        center: [652, 10],
+        radius1: 35,
+        radius2: 10,
+        radius3: 15,
+        radius1Har: 35,
+        radius2Har: 35,
+        radius3Har: 30,
+        // color: '#ee492085',
+        // fillColor: '#ee4920'
+        color: '#6fcaee52',
+        fillColor: '#6fcaee',
+        weight: 1.5
+      },
       tileComponent: {
         name: "tile-component",
         props: {
@@ -144,6 +208,20 @@ export default {
       }
     };
   },
+  computed: {
+    InvertedCoords() {
+      var newArraw = [];
+      for (let i = 0; i < this.stars.length; i++) {
+        newArraw[i] = {
+          id: i + 2,
+          lat: this.stars[i].lat * -1,
+          lng: this.stars[i].lng * -1
+        };
+      }
+      return newArraw;
+      console.log(newArraw);
+    }
+  },
 
   watch: {
     msg: function() {
@@ -152,7 +230,8 @@ export default {
   },
 
   mounted() {
-    this.$refs.map.mapObject.setView([-552, -40], 1);
+    // this.$refs.map.mapObject.setView([-552, -40], 1);
+    this.$refs.map.mapObject.setView([552, 40], 1); // For the inverted coordinates (correct!)
 
     // this.$refs.map.mapObject.fitBounds(bounds);
 
@@ -184,7 +263,14 @@ export default {
     );
   },
 
-  methods: {}
+  methods: {
+    inverted() {
+      for (let i = 0; i < this.newArraw.length; i++) {
+        console.log(this.newArraw[i]);
+        return this.newArraw[i];
+      }
+    }
+  }
 };
 </script>
 

@@ -23,9 +23,7 @@
         <label>Local Population 2:</label>
         <input type="text" id="local-pop" class="form-control" v-model="temporalForm.body.LOCALPOP2" />
         <label>Planet 2:</label>
-        <select type="text" id="local-pop" class="form-control" v-model="temporalForm.body.PLANET2">
-            <option v-for="optionPlanet2 in optionsPlanet2" :key="optionPlanet2">{{ optionPlanet2 }}</option>
-        </select>
+        <input type="text" id="local-pop" class="form-control" v-model="temporalForm.body.PLANET2" />
         <label>Local Population 3:</label>
         <input type="text" id="local-pop" class="form-control" v-model="temporalForm.body.LOCALPOP3" />
         <label>Planet 3:</label>
@@ -33,13 +31,15 @@
         <label>System Owner:</label>
         <input type="text" id="owner" class="form-control" v-model="temporalForm.body.SYSTEMOWNER" />
         <label>Radar:</label>
-        <input type="number" id="radar" class="form-control" v-model="temporalForm.body.RADAR" />
+        <select type="number" id="radar" class="form-control" v-model="temporalForm.body.RADAR">
+          <option v-for="optionRadar in optionsRadar" :key="optionRadar">{{ optionRadar }}</option>
+        </select>
         <label>Comments:</label>
         <textarea type="text" id="comments" class="form-control" v-model="temporalForm.body.COMMENTS" />
         <label>Added by:</label>
         <input type="text" id="added-by" class="form-control" v-model="temporalForm.body.ADDEDBY" />
         <label>Date:</label>
-        <input type="text" id="date" class="form-control" v-model="temporalForm.body.DATE" />
+        <input type="date" min="2019-01-01" max="2030-12-31" id="date" class="form-control" v-model="temporalForm.body.DATE" />
         <label>Status:</label>
         <select type="text" id="status" class="form-control" v-model="temporalForm.body.STATUS">
             <option v-for="optioStatus in optiosStatus" :key="optioStatus">{{ optioStatus }}</option>
@@ -99,7 +99,7 @@ export default {
         }
       },
       optionsLocalPop1: ['Evo', 'Ako', 'Mount', 'Skre', 'Harp', 'Zoni'],
-      optionsPlanet2: ['1', '2', '3', '1Har', '2Har', '3Har'],
+      optionsRadar: ['1', '2', '3', '1Har', '2Har', '3Har'],
       optiosStatus: ['ALLY', 'ENEMY', 'NEUTRAL'],
       optionsPlanetCount: [1, 2, 3, 4, 5, 6, 7, 8, 9]
       // newStar: {}
@@ -140,6 +140,7 @@ export default {
           "https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend", this.temporalForm)
         .then(response => {
             console.log(response);
+            
           },
           error => {
             console.log(error);
@@ -147,6 +148,7 @@ export default {
         );
       console.log(this.temporalForm);
       this.temporalForm = "";
+      // alert('You added a new star');
     }
 
     // submit: function() {
