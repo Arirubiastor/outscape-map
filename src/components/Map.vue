@@ -1,5 +1,10 @@
 <template>
 <body>
+  <!-- <v-autocomplete :stars="stars" v-model="star" :get-label="getLabel" :component-star='template' @update-stars="updateStars">
+    <h1>Este es mi auto-complete</h1>
+  </v-autocomplete> -->
+  <!-- <div>was?</div> -->
+  <button class="search-by-name" @click="StarsData()">Search by Name</button>
   <div>
     <li v-for="(message, index) in messageList" :item="message" :key="index">{{ message }}</li>
   </div>
@@ -123,8 +128,6 @@
         :weight="radar.weight">
       </l-circle>
     </div>
-
-    <!-- <l-polyline :lat-lngs="travel" /> -->
   </l-map>
 </body>
 </template>
@@ -132,6 +135,9 @@
 <script>
 import L from "leaflet";
 import { CRS } from "leaflet";
+// import ItemTemplate from './ItemTemplate.vue';
+// import GridTemplate from './GridTemplate.vue';
+import { eventBus } from '../main.js'
 import {
   LMap,
   LTileLayer,
@@ -174,7 +180,10 @@ export default {
       ],
       minZoom: 0.5,
       crs: L.CRS.Simple,
+      star: {"id":2,"name":"ABBERET 2","lng":"-242","lat":"-544","planetCount":"","planet1":"","localPop2":"","planet2":"","localPop3":"","planet3":"","systemOwner":"MasterMantis","radar":"","comments":"","addedBy":"AC","date":"04.05.2020","status":"NEUTRAL"},
       stars: [],
+      searchStar: "",
+      // template: ItemTemplate,
       messageList: [],
       icon: {
         iconUrl: "https://image.flaticon.com/icons/png/512/304/304378.png",
@@ -189,8 +198,6 @@ export default {
         radius1Har: 35,
         radius2Har: 35,
         radius3Har: 30,
-        // color: '#ee492085',
-        // fillColor: '#ee4920'
         color: '#6fcaee52',
         fillColor: '#6fcaee',
         weight: 1.5
@@ -203,8 +210,8 @@ export default {
             required: true
           }
         },
-        template:
-          '<div style="outline:1px solid #38c9d386; height:40rem; width:40rem;"></div>'
+        template: '<div style="outline:1px solid #38c9d386; height:40rem; width:40rem;"></div>'
+        // GridTemplate
       }
     };
   },
@@ -220,6 +227,11 @@ export default {
       }
       return newArraw;
       console.log(newArraw);
+    },
+    filteredStars: function() {
+      return this.stars.filter((star) => {
+        return star.name.match(this.search);
+      })
     }
   },
 
@@ -235,14 +247,10 @@ export default {
 
     // this.$refs.map.mapObject.fitBounds(bounds);
 
-    this.$http
-      .get(
-        // "https://amupvtj3f9.execute-api.us-east-1.amazonaws.com/test/outscapedata"
-        "https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend"
-      )
-      .then(response => {
-        return response.json();
-      })
+    this.$http.get("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend")
+        .then(response => {
+          return response.json();
+        })
       .then(data => {
         const resultArray = [];
         for (let key in data) {
@@ -250,17 +258,6 @@ export default {
         }
         this.stars = resultArray;
       });
-
-    LTileLayer.InvertedY = LTileLayer.extend({
-      getTileUrl: function(tilecoords) {
-        tilecoords.y = -tilecoords.y;
-        return LTileLayer.prototype.getTileUrl.call(this, tilecoords);
-      }
-    });
-
-    var layer = new LTileLayer.InvertedY(
-      "https://wallpaperboat.com/wp-content/uploads/2019/10/high-resolution-black-background-08.jpg"
-    );
   },
 
   methods: {
@@ -269,15 +266,44 @@ export default {
         console.log(this.newArraw[i]);
         return this.newArraw[i];
       }
+    },
+    getLabel(star) {
+      return star.name
+    },
+    updateStars(text) {
+      this.$http.get("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend")
+        .then(response => {
+          return response.json();
+        })
+      .then(data => {
+        const resultArray = [];
+        for (let key in data) {
+          resultArray.push(data[key]);
+        }
+        this.stars = resultArray;
+      });
+    },
+    StarsData() {
+      eventBus.$emit('i-got-clicked', this.stars)
     }
   }
 };
 </script>
 
 <style scoped>
+.search-by-name {
+  cursor: pointer;
+  position: absolute;
+  z-index: 500;
+  /* margin-left: 755px; */
+  margin-right: 17px;
+  /* text-align: right; */
+  right: 0;
+}
+
 .map {
   height: 95vh;
-  margin-top: 0px;
+  margin-top: 5px;
 }
 
 .popup {

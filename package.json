@@ -23,6 +23,7 @@
     "file-loader": "^1.1.4",
     "leaflet": "^1.6.0",
     "nuxt-leaflet": "0.0.21",
+    "v-autocomplete": "^1.8.2",
     "vue": "2.6.10",
     "vue-loader": "^13.0.5",
     "vue-resource": "^1.5.1",
