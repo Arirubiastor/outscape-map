@@ -214,7 +214,7 @@ export default {
     deleteID() {
       const array = this.temporalUpdatedStar.body.values;
       const removedid = array.shift();
-      console.log(array);
+      // console.log(array);
     }
   },
 
@@ -297,6 +297,7 @@ export default {
 .hide-test {
   position: absolute;
   z-index: 1;
+  color: white;
   /* color: aliceblue; */
   /* z-index: 1000; */
   

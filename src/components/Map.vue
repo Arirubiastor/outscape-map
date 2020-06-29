@@ -84,8 +84,7 @@
       <!-- <l-icon :icon-size="[32, 37]" icon-url="/images/star.png"></l-icon> -->
       <l-popup class="popup">
         <em class="popup-bold">Id: </em>{{ newCoords.id }}<br />
-        <!-- Lat: {{ newCoords.lat }},
-        Lng: {{ newCoords.lng }},<br> -->
+        <!-- Lat: {{ newCoords.lat }}, Lng: {{ newCoords.lng }},<br> -->
         <em class="popup-bold">Name: </em>{{ stars[i].name }}<br />
         <em class="popup-bold">Longitud: </em>{{ stars[i].lng }}<br />
         <em class="popup-bold">Latitud: </em>{{ stars[i].lat }}<br />
@@ -136,7 +135,7 @@
 import L from "leaflet";
 import { CRS } from "leaflet";
 // import ItemTemplate from './ItemTemplate.vue';
-// import GridTemplate from './GridTemplate.vue';
+import GridTemplate from './GridTemplate.vue';
 import { eventBus } from '../main.js'
 import {
   LMap,
@@ -202,17 +201,17 @@ export default {
         fillColor: '#6fcaee',
         weight: 1.5
       },
-      tileComponent: {
-        name: "tile-component",
-        props: {
-          coords: {
-            type: Object,
-            required: true
-          }
-        },
-        template: '<div style="outline:1px solid #38c9d386; height:40rem; width:40rem;"></div>'
-        // GridTemplate
-      }
+      tileComponent: GridTemplate
+      // tileComponent: {
+      //   name: "tile-component",
+      //   props: {
+      //     coords: {
+      //       type: Object,
+      //       required: true
+      //     }
+      //   },
+      //   template: // '<div style="outline:1px solid #38c9d386; height:40rem; width:40rem;"></div>'
+      // }
     };
   },
   computed: {
@@ -285,7 +284,8 @@ export default {
     },
     StarsData() {
       eventBus.$emit('i-got-clicked', this.stars)
-    }
+    },
+    
   }
 };
 </script>

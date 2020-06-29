@@ -5,9 +5,19 @@
 
 <script>
 export default {
-    props: {
-
+  name: "tile-component",
+  props: {
+    coords: {
+      type: Object,
+      required: true
+          }
+        },
+        
+  data() {
+    return {
+      
     }
+  },
 }
 </script>
 
