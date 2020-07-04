@@ -125,11 +125,11 @@
         </select>
         <br />
         <input class="update-button" type="submit" value="Update" @click="update" />
-        <!-- put: {{ temporalUpdatedStar }}<br>
+        put: {{ temporalUpdatedStar }}<br>
         selected id: {{ selectedid }}<br>
         temp values: {{ temporalValues }}<br>
         range: {{ rangeFormat }}, values: {{ objectToArray }}<br>
-        deleted id: {{ deleteID }} -->
+        deleted id: {{ deleteID }}
       </form>
     </div>
   </div>
@@ -138,6 +138,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { eventBus } from '../main.js'
 
 export default {
@@ -173,12 +174,6 @@ export default {
         },
       },
       updatedStar: "",
-      // temporalUpdatedStar: {
-      //   "body": {
-      //     "range": "id:id",
-      //     "values": []
-      //   }
-      // },
       selectedId: "",
       temporalUpdatedStar: {
         body: {
@@ -237,45 +232,63 @@ export default {
     //   this.temporalForm = "";
     // },
 
+    // AXIOS
     submit() {
-      this.$http.post("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend", this.newStar)
-        .then(response => {
-            console.log(response); // success callback
-            this.submitted = true;
-            // alert('You added a new star'); 
-          },
-          error => {
-            console.log(error); // error callback
-            // alert('The star was not added');
-          }
-        );
-      console.log(this.newStar);
-      this.submitted = true;
-      this.newStar = "";
-      // alert('You added a new star');
+      axios.post('https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend', this.newStar)
+      .then(response => console.log(response))
+      .catch(error => console.log(error))
     },
+
+    // VUE-RESOURCE
+    // submit() {
+    //   this.$http.post("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend", this.newStar)
+    //     .then(response => {
+    //         console.log(response); // success callback
+    //         this.submitted = true;
+    //         // alert('You added a new star'); 
+    //       },
+    //       error => {
+    //         console.log(error); // error callback
+    //         // alert('The star was not added');
+    //       }
+    //     );
+    //   console.log(this.newStar);
+    //   this.submitted = true;
+    //   this.newStar = "";
+    //   // alert('You added a new star');
+    // },
 
     // submit: function() {
     //   this.$emit("inputData", this.newStar); // Make tempMessage available to a parent component
     //   this.newStar = ""; // Clears out the input field to accept the next value
     // }
 
-    update() { 
-      // var temporalUpdatedStar = {
-      //   "body": {
-      //     "range": "151:151",
-      //     "values": ["122", "122", "122", "122", "122", "122", "122", "122", "122", "122", "122", "122"]
-      //   }
-      // }
-      this.$http.put("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend", this.temporalUpdatedStar)
-      .then(response => {
-        this.temporalUpdatedStar = response // this.temporalUpdatedStar = response.body; // update data from the response
-        console.log(response.body);
-        // console.log(temporalUpdatedStar);
-      }, error => {
-        console.log(error);// callback error
-      })
+    // VUE-RESOURCE
+    // update() { 
+    //   // var temporalUpdatedStar = {
+    //   //   "body": {
+    //   //     "range": "151:151",
+    //   //     "values": ["122", "122", "122", "122", "122", "122", "122", "122", "122", "122", "122", "122"]
+    //   //   }
+    //   // }
+    //   this.$http.put("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend", this.temporalUpdatedStar)
+    //   .then(response => {
+    //     this.temporalUpdatedStar = response // this.temporalUpdatedStar = response.body; // update data from the response
+    //     console.log(response.body);
+    //     console.log(response);
+    //     // console.log(temporalUpdatedStar);
+    //   }, error => {
+    //     console.log(error);// callback error
+    //   })
+    // },
+
+    // AXIOS
+    update() {
+      axios.put('https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend', this.temporalUpdatedStar)
+      .then(response => console.log(response))
+      .catch(error => console.log(error))
     },
+
     selectedStarName(event) {
       // this.temporalUpdatedStar.body.values = event.target.value
       // this.selectedCountry = event.target.options[event.target.options.selectedIndex].text
@@ -297,7 +310,7 @@ export default {
 .hide-test {
   position: absolute;
   z-index: 1;
-  color: white;
+  color: transparent;
   /* color: aliceblue; */
   /* z-index: 1000; */
   

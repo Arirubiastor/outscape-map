@@ -4,6 +4,9 @@
     <h1>Este es mi auto-complete</h1>
   </v-autocomplete> -->
   <!-- <div>was?</div> -->
+
+  <!-- <leaflet-search></leaflet-search> -->
+
   <button class="search-by-name" @click="StarsData()">Search by Name</button>
   <div>
     <li v-for="(message, index) in messageList" :item="message" :key="index">{{ message }}</li>
@@ -11,6 +14,7 @@
   <l-map class="map" ref="map" :min-zoom="minZoom" :crs="crs">
     <l-tile-layer :url="url"></l-tile-layer>
     <!-- <l-image-overlay :url="url" :bounds="bounds" /> -->
+
     <l-grid-layer class="grid" :tile-component="tileComponent"></l-grid-layer>
     
     <!-- STARS MAP WITH ORIGINAL COORDS (wrong one, it has to be rotated 180 deg) -->
@@ -48,7 +52,8 @@
     </l-marker> -->
 
     <!-- INVERTED COORDS NEW STARS MAP -->
-    <l-marker v-for="(newCoords, i) in InvertedCoords" :key="i" :lat-lng="newCoords">
+    <l-layer-group>
+      <l-marker v-for="(newCoords, i) in InvertedCoords" :key="i" :lat-lng="newCoords">
       <div v-if="stars[i].status === 'ALLY'">
         <l-icon
           id="yellow-icon"
@@ -104,6 +109,8 @@
         <!-- TEST: {{ InvertedCoords }} -->
       </l-popup>
     </l-marker>
+    </l-layer-group>
+    
     <div v-for="(newCoords, i) in InvertedCoords" :key="'A' + i"><!-- 'A' + i to avoid duplicate id -->
       <l-circle v-if="stars[i].radar === '1'"
         :lat-lng="newCoords" 
@@ -132,10 +139,12 @@
 </template>
 
 <script>
+import axios from 'axios';
 import L from "leaflet";
 import { CRS } from "leaflet";
 // import ItemTemplate from './ItemTemplate.vue';
 import GridTemplate from './GridTemplate.vue';
+import { LeafletSearch } from 'leaflet-search';
 import { eventBus } from '../main.js'
 import {
   LMap,
@@ -146,7 +155,8 @@ import {
   LPolyline,
   LIcon,
   LGridLayer,
-  LCircle
+  LCircle,
+  LLayerGroup
 } from "vue2-leaflet";
 
 export default {
@@ -160,7 +170,9 @@ export default {
     LPolyline,
     LIcon,
     LGridLayer,
-    LCircle
+    LCircle,
+    LeafletSearch,
+    LLayerGroup
   },
 
   props: {
@@ -171,17 +183,16 @@ export default {
 
   data() {
     return {
-      url:
-        "https://wallpaperboat.com/wp-content/uploads/2019/10/high-resolution-black-background-08.jpg",
+      url: "https://wallpaperboat.com/wp-content/uploads/2019/10/high-resolution-black-background-08.jpg",
       bounds: [
         [-2600, -2700],
         [1000, 3000]
       ],
-      minZoom: 0.5,
+      // minZoom: 0.5,
+      minZoom: 0,
       crs: L.CRS.Simple,
-      star: {"id":2,"name":"ABBERET 2","lng":"-242","lat":"-544","planetCount":"","planet1":"","localPop2":"","planet2":"","localPop3":"","planet3":"","systemOwner":"MasterMantis","radar":"","comments":"","addedBy":"AC","date":"04.05.2020","status":"NEUTRAL"},
       stars: [],
-      searchStar: "",
+      // newCoords: [],
       // template: ItemTemplate,
       messageList: [],
       icon: {
@@ -210,7 +221,7 @@ export default {
       //       required: true
       //     }
       //   },
-      //   template: // '<div style="outline:1px solid #38c9d386; height:40rem; width:40rem;"></div>'
+      //   template: '<div style="outline:1px solid #38c9d386; height:40rem; width:40rem;"></div>'
       // }
     };
   },
@@ -227,11 +238,6 @@ export default {
       return newArraw;
       console.log(newArraw);
     },
-    filteredStars: function() {
-      return this.stars.filter((star) => {
-        return star.name.match(this.search);
-      })
-    }
   },
 
   watch: {
@@ -242,7 +248,7 @@ export default {
 
   mounted() {
     // this.$refs.map.mapObject.setView([-552, -40], 1);
-    this.$refs.map.mapObject.setView([552, 40], 1); // For the inverted coordinates (correct!)
+    this.$refs.map.mapObject.setView([552, 40], 1); // setView coords for the inverted coordinates (correct!)
 
     // this.$refs.map.mapObject.fitBounds(bounds);
 
@@ -257,6 +263,44 @@ export default {
         }
         this.stars = resultArray;
       });
+
+    var markersArray;
+    
+    var hydMarker = new L.Marker([17.385044, 78.486671]);
+    var vskpMarker = new L.Marker([17.686816, 83.218482]);
+    var vjwdMarker = new L.Marker([16.506174, 80.648015]);
+
+
+    // someMarker.addTo(someLayerGroup); // add markers to a Leaflet layer group
+
+    var searchLayer = new L.layerGroup([hydMarker, vskpMarker, vjwdMarker]).addTo(this.$refs.map.mapObject);
+    // L.marker().addTo(searchLayer); // add markers to a Leaflet layer group
+
+//     for (i = 0; i < InvertedCoords.length; i++) {
+//     marker = L.marker([InvertedCoords[i][0], InvertedCoords[i][1]]);
+//     layerGroup.addLayer(marker);
+
+//     var overlay = {'markers': layerGroup};
+//     L.control.layers(null, overlay).addTo(map);
+// }
+    
+    this.$refs.map.mapObject.addLayer(searchLayer);
+
+    const controlSearch = new L.Control.Search({
+      layer: searchLayer,
+      propertyName: 	'name',
+      propertyLoc: ['lat','lng'],
+      marker: L.circleMarker([0, 0], { radius: 30 }),
+      autoCollapse: true,
+      autoType: true,
+      minLength: 2,
+      textPlaceholder: 'search star by name...'
+  //     inicial: false,
+  //     zoom: 11,
+  //     marker: false,
+  });
+  // this.$refs.map.mapObject.addControl(controlSearch); //descomentar
+  //   map.addControl(controlSearch);
   },
 
   methods: {
@@ -266,9 +310,9 @@ export default {
         return this.newArraw[i];
       }
     },
-    getLabel(star) {
-      return star.name
-    },
+    // getLabel(star) {
+    //   return star.name
+    // },
     updateStars(text) {
       this.$http.get("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend")
         .then(response => {
@@ -291,6 +335,8 @@ export default {
 </script>
 
 <style scoped>
+@import "~leaflet-search/src/leaflet-search.css";
+
 .search-by-name {
   cursor: pointer;
   position: absolute;
