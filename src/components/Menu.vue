@@ -10,11 +10,11 @@
       <button class="add-button" @click="toggleAdd">Add Star</button>
       <form class="form_add-star" v-if="active">
         <label>Name:</label>
-        <input required type="text" id="name" class="form-control" v-model="newStar.body.NAME" />
+        <input required type="text" id="name" class="form-control required-input" v-model="newStar.body.NAME" />
         <label>Longitud:</label>
-        <input required type="number" id="lng" class="form-control" v-model="newStar.body.LONG" />
+        <input required type="number" id="lng" class="form-control required-input" v-model="newStar.body.LONG" />
         <label>Latitud:</label>
-        <input required type="number" id="lat" class="form-control" v-model="newStar.body.LAT" />
+        <input required type="number" id="lat" class="form-control required-input" v-model="newStar.body.LAT" />
         <label>Number of Planets:</label>
         <select type="number" id="planets" class="form-control" v-model="newStar.body.PLANETCOUNT">
           <option v-for="optionPlanetCount in optionsPlanetCount" :key="optionPlanetCount">{{ optionPlanetCount }}</option>
@@ -46,9 +46,9 @@
         <label>Comments:</label>
         <textarea type="text" id="comments" class="form-control" v-model="newStar.body.COMMENTS" />
         <label>Added by:</label>
-        <input required type="text" id="added-by" class="form-control" v-model="newStar.body.ADDEDBY" />
+        <input required type="text" id="added-by" class="form-control required-input" v-model="newStar.body.ADDEDBY" />
         <label>Date:</label>
-        <input required type="date" min="2019-01-01" max="2030-12-31" id="date" class="form-control" v-model="newStar.body.DATE" />
+        <input required type="date" min="2019-01-01" max="2030-12-31" id="date" class="form-control required-input" v-model="newStar.body.DATE" />
         <label>Status:</label>
         <select type="text" id="status" class="form-control" v-model="newStar.body.STATUS">
             <option v-for="optioStatus in optiosStatus" :key="optioStatus">{{ optioStatus }}</option>
@@ -80,11 +80,11 @@
         <!-- <label>Name:</label>
         <input required type="text" id="name" class="form-control" v-model="temporalValues.name"> -->
         <label>Longitud:</label>
-        <input required type="number" id="lng" class="form-control" v-model="temporalValues.lng">
+        <input required type="number" id="lng" class="form-control required-input" v-model="temporalValues.lng">
         <!-- <label>Latitud:</label>
         <input required type="number" id="lat" class="form-control" v-model="temporalUpdatedStar.body.values[2]" /> -->
         <label>Latitud:</label>
-        <input required type="number" id="lat" class="form-control" v-model="temporalValues.lat" />
+        <input required type="number" id="lat" class="form-control required-input" v-model="temporalValues.lat" />
         <label>Number of Planets:</label>
         <select type="number" id="planets" class="form-control" v-model="temporalValues.planetCount">
           <option v-for="optionPlanetCount in optionsPlanetCount" :key="optionPlanetCount">{{ optionPlanetCount }}</option>
@@ -116,9 +116,9 @@
         <label>Comments:</label>
         <textarea type="text" id="comments" class="form-control" v-model="temporalValues.comments" />
         <label>Added by:</label>
-        <input required type="text" id="added-by" class="form-control" v-model="temporalValues.addedBy" />
+        <input required type="text" id="added-by" class="form-control required-input" v-model="temporalValues.addedBy" />
         <label>Date:</label>
-        <input required type="date" min="2019-01-01" max="2030-12-31" id="date" class="form-control" v-model="temporalValues.date" />
+        <input required type="date" min="2019-01-01" max="2030-12-31" id="date" class="form-control required-input" v-model="temporalValues.date" />
         <label>Status:</label>
         <select type="text" id="status" class="form-control" v-model="temporalValues.status">
             <option v-for="optioStatus in optiosStatus" :key="optioStatus">{{ optioStatus }}</option>
@@ -345,6 +345,10 @@ export default {
   margin-right: 30px;
   width: 300px;
   padding: 5px;
+}
+
+.required-input {
+  outline: 1px solid red;
 }
 
 #comments {
