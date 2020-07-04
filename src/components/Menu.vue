@@ -46,9 +46,9 @@
         <label>Comments:</label>
         <textarea type="text" id="comments" class="form-control" v-model="newStar.body.COMMENTS" />
         <label>Added by:</label>
-        <input type="text" id="added-by" class="form-control" v-model="newStar.body.ADDEDBY" />
+        <input required type="text" id="added-by" class="form-control" v-model="newStar.body.ADDEDBY" />
         <label>Date:</label>
-        <input type="date" min="2019-01-01" max="2030-12-31" id="date" class="form-control" v-model="newStar.body.DATE" />
+        <input required type="date" min="2019-01-01" max="2030-12-31" id="date" class="form-control" v-model="newStar.body.DATE" />
         <label>Status:</label>
         <select type="text" id="status" class="form-control" v-model="newStar.body.STATUS">
             <option v-for="optioStatus in optiosStatus" :key="optioStatus">{{ optioStatus }}</option>
@@ -116,20 +116,20 @@
         <label>Comments:</label>
         <textarea type="text" id="comments" class="form-control" v-model="temporalValues.comments" />
         <label>Added by:</label>
-        <input type="text" id="added-by" class="form-control" v-model="temporalValues.addedBy" />
+        <input required type="text" id="added-by" class="form-control" v-model="temporalValues.addedBy" />
         <label>Date:</label>
-        <input type="date" min="2019-01-01" max="2030-12-31" id="date" class="form-control" v-model="temporalValues.date" />
+        <input required type="date" min="2019-01-01" max="2030-12-31" id="date" class="form-control" v-model="temporalValues.date" />
         <label>Status:</label>
         <select type="text" id="status" class="form-control" v-model="temporalValues.status">
             <option v-for="optioStatus in optiosStatus" :key="optioStatus">{{ optioStatus }}</option>
         </select>
         <br />
         <input class="update-button" type="submit" value="Update" @click="update" />
-        put: {{ temporalUpdatedStar }}<br>
+        <!-- put: {{ temporalUpdatedStar }}<br>
         selected id: {{ selectedid }}<br>
         temp values: {{ temporalValues }}<br>
         range: {{ rangeFormat }}, values: {{ objectToArray }}<br>
-        deleted id: {{ deleteID }}
+        deleted id: {{ deleteID }} -->
       </form>
     </div>
   </div>
