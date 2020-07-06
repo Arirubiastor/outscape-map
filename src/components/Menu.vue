@@ -2,38 +2,68 @@
 <body>
   <!-- put: {{ temporalUpdatedStar }}<br> -->
   <!-- selected id: {{ temporalValues.id }}<br> -->
-  <div class="hide-test">
-    temp values: {{ temporalValues }}, range: {{ rangeFormat }}, values: {{ objectToArray }}, deleted id: {{ deleteID }}
-  </div>
+  <div
+    class="hide-test"
+  >temp values: {{ temporalValues }}, range: {{ rangeFormat }}, values: {{ objectToArray }}, deleted id: {{ deleteID }}</div>
   <div class="main-menu">
     <div>
       <button class="add-button" @click="toggleAdd">Add Star</button>
       <form class="form_add-star" v-if="active">
         <label>Name:</label>
-        <input required type="text" id="name" class="form-control required-input" v-model="newStar.body.NAME" />
+        <input
+          required
+          type="text"
+          id="name"
+          class="form-control required-input"
+          v-model="newStar.body.NAME"
+        />
         <label>Longitud:</label>
-        <input required type="number" id="lng" class="form-control required-input" v-model="newStar.body.LONG" />
+        <input
+          required
+          type="number"
+          id="lng"
+          class="form-control required-input"
+          v-model="newStar.body.LONG"
+        />
         <label>Latitud:</label>
-        <input required type="number" id="lat" class="form-control required-input" v-model="newStar.body.LAT" />
+        <input
+          required
+          type="number"
+          id="lat"
+          class="form-control required-input"
+          v-model="newStar.body.LAT"
+        />
         <label>Number of Planets:</label>
         <select type="number" id="planets" class="form-control" v-model="newStar.body.PLANETCOUNT">
-          <option v-for="optionPlanetCount in optionsPlanetCount" :key="optionPlanetCount">{{ optionPlanetCount }}</option>
+          <option
+            v-for="optionPlanetCount in optionsPlanetCount"
+            :key="optionPlanetCount"
+          >{{ optionPlanetCount }}</option>
         </select>
         <label>Local Population 1:</label>
         <select type="text" id="local-pop1" class="form-control" v-model="newStar.body.LOCALPOP1">
-            <option v-for="optionLocalPop in optionsLocalPop" :key="optionLocalPop">{{ optionLocalPop }}</option>
+          <option
+            v-for="optionLocalPop in optionsLocalPop"
+            :key="optionLocalPop"
+          >{{ optionLocalPop }}</option>
         </select>
         <label>Planet 1:</label>
         <input type="text" id="planet1" class="form-control" v-model="newStar.body.PLANET1" />
         <label>Local Population 2:</label>
         <select type="text" id="local-pop2" class="form-control" v-model="newStar.body.LOCALPOP2">
-            <option v-for="optionLocalPop in optionsLocalPop" :key="optionLocalPop">{{ optionLocalPop }}</option>
+          <option
+            v-for="optionLocalPop in optionsLocalPop"
+            :key="optionLocalPop"
+          >{{ optionLocalPop }}</option>
         </select>
         <label>Planet 2:</label>
         <input type="text" id="planet2" class="form-control" v-model="newStar.body.PLANET2" />
         <label>Local Population 3:</label>
         <select type="text" id="local-pop3" class="form-control" v-model="newStar.body.LOCALPOP3">
-            <option v-for="optionLocalPop in optionsLocalPop" :key="optionLocalPop">{{ optionLocalPop }}</option>
+          <option
+            v-for="optionLocalPop in optionsLocalPop"
+            :key="optionLocalPop"
+          >{{ optionLocalPop }}</option>
         </select>
         <label>Planet 3:</label>
         <input type="text" id="planet3" class="form-control" v-model="newStar.body.PLANET3" />
@@ -46,64 +76,111 @@
         <label>Comments:</label>
         <textarea type="text" id="comments" class="form-control" v-model="newStar.body.COMMENTS" />
         <label>Added by:</label>
-        <input required type="text" id="added-by" class="form-control required-input" v-model="newStar.body.ADDEDBY" />
+        <input
+          required
+          type="text"
+          id="added-by"
+          class="form-control required-input"
+          v-model="newStar.body.ADDEDBY"
+        />
         <label>Date:</label>
-        <input required type="date" min="2019-01-01" max="2030-12-31" id="date" class="form-control required-input" v-model="newStar.body.DATE" />
+        <input
+          required
+          type="date"
+          min="2019-01-01"
+          max="2030-12-31"
+          id="date"
+          class="form-control required-input"
+          v-model="newStar.body.DATE"
+        />
         <label>Status:</label>
         <select type="text" id="status" class="form-control" v-model="newStar.body.STATUS">
-            <option v-for="optioStatus in optiosStatus" :key="optioStatus">{{ optioStatus }}</option>
+          <option v-for="optioStatus in optiosStatus" :key="optioStatus">{{ optioStatus }}</option>
         </select>
         <br />
-        <input class="submit-button" type="submit" value="Sumbit" @click="submit" v-if="!submitted" />
-        <!-- <input class="update-button" type="submit" value="Update" @click="update" /> -->
-        <div v-if="submitted">
-          <h3>You added a new star!</h3>
+        <input class="submit-button" type="submit" value="Sumbit" @click.prevent="submit" v-if="!submitted" />
+        <div class="submitted-form" v-if="submitted">
+          <h3 style="text-align:center; font-size:16px; margin-top:0">You added a the star {{ newStar.body.NAME }}</h3>
+          <button class="close-button" @click="close">Close</button>
         </div>
         <!-- <div>Your data: {{ newStar }}</div>
         <div>New Lat: {{ LATNEG }}</div>
-        <div>Lat Neg: {{ latNeg }}</div> -->
+        <div>Lat Neg: {{ latNeg }}</div>-->
       </form>
     </div>
     <!-- <div>
       <button>Delete Star</button>
-    </div> -->
+    </div>-->
     <div>
       <button class="edit-button" @click="toggleUpdate">Edit Star</button>
       <form class="form_add-star" v-if="isActive">
         <!-- <label>Id:</label>
-        <input type="text" id="starId" class="form-control" placeholder="" v-model="temporalUpdatedStar.body.range"> -->
+        <input type="text" id="starId" class="form-control" placeholder="" v-model="temporalUpdatedStar.body.range">-->
         <label>Name:</label>
         <select required type="text" id="nameSearch" class="form-control" v-model="temporalValues">
-          <option v-for="starMenu in starsMenu" :key="starMenu.id" :value="starMenu" @change="selectedStarName($event)">{{ starMenu.name }}
-          </option>
+          <option
+            v-for="starMenu in starsMenu"
+            :key="starMenu.id"
+            :value="starMenu"
+            @change="selectedStarName($event)"
+          >{{ starMenu.name }}</option>
         </select>
         <!-- <label>Name:</label>
-        <input required type="text" id="name" class="form-control" v-model="temporalValues.name"> -->
+        <input required type="text" id="name" class="form-control" v-model="temporalValues.name">-->
         <label>Longitud:</label>
-        <input required type="number" id="lng" class="form-control required-input" v-model="temporalValues.lng">
+        <input
+          required
+          type="number"
+          id="lng"
+          class="form-control required-input"
+          v-model="temporalValues.lng"
+        />
         <!-- <label>Latitud:</label>
-        <input required type="number" id="lat" class="form-control" v-model="temporalUpdatedStar.body.values[2]" /> -->
+        <input required type="number" id="lat" class="form-control" v-model="temporalUpdatedStar.body.values[2]" />-->
         <label>Latitud:</label>
-        <input required type="number" id="lat" class="form-control required-input" v-model="temporalValues.lat" />
+        <input
+          required
+          type="number"
+          id="lat"
+          class="form-control required-input"
+          v-model="temporalValues.lat"
+        />
         <label>Number of Planets:</label>
-        <select type="number" id="planets" class="form-control" v-model="temporalValues.planetCount">
-          <option v-for="optionPlanetCount in optionsPlanetCount" :key="optionPlanetCount">{{ optionPlanetCount }}</option>
+        <select
+          type="number"
+          id="planets"
+          class="form-control"
+          v-model="temporalValues.planetCount"
+        >
+          <option
+            v-for="optionPlanetCount in optionsPlanetCount"
+            :key="optionPlanetCount"
+          >{{ optionPlanetCount }}</option>
         </select>
         <label>Local Population 1:</label>
         <select type="text" id="local-pop1" class="form-control" v-model="temporalValues.localPop1">
-            <option v-for="optionLocalPop in optionsLocalPop" :key="optionLocalPop">{{ optionLocalPop }}</option>
+          <option
+            v-for="optionLocalPop in optionsLocalPop"
+            :key="optionLocalPop"
+          >{{ optionLocalPop }}</option>
         </select>
         <label>Planet 1:</label>
         <input type="text" id="planet1" class="form-control" v-model="temporalValues.planet1" />
         <label>Local Population 2:</label>
         <select type="text" id="local-pop2" class="form-control" v-model="temporalValues.localPop2">
-            <option v-for="optionLocalPop in optionsLocalPop" :key="optionLocalPop">{{ optionLocalPop }}</option>
+          <option
+            v-for="optionLocalPop in optionsLocalPop"
+            :key="optionLocalPop"
+          >{{ optionLocalPop }}</option>
         </select>
         <label>Planet 2:</label>
         <input type="text" id="planet2" class="form-control" v-model="temporalValues.planet2" />
         <label>Local Population 3:</label>
         <select type="text" id="local-pop3" class="form-control" v-model="temporalValues.localPop3">
-            <option v-for="optionLocalPop in optionsLocalPop" :key="optionLocalPop">{{ optionLocalPop }}</option>
+          <option
+            v-for="optionLocalPop in optionsLocalPop"
+            :key="optionLocalPop"
+          >{{ optionLocalPop }}</option>
         </select>
         <label>Planet 3:</label>
         <input type="text" id="planet3" class="form-control" v-model="temporalValues.planet3" />
@@ -116,30 +193,47 @@
         <label>Comments:</label>
         <textarea type="text" id="comments" class="form-control" v-model="temporalValues.comments" />
         <label>Added by:</label>
-        <input required type="text" id="added-by" class="form-control required-input" v-model="temporalValues.addedBy" />
+        <input
+          required
+          type="text"
+          id="added-by"
+          class="form-control required-input"
+          v-model="temporalValues.addedBy"
+        />
         <label>Date:</label>
-        <input required type="date" min="2019-01-01" max="2030-12-31" id="date" class="form-control required-input" v-model="temporalValues.date" />
+        <input
+          required
+          type="date"
+          min="2019-01-01"
+          max="2030-12-31"
+          id="date"
+          class="form-control required-input"
+          v-model="temporalValues.date"
+        />
         <label>Status:</label>
         <select type="text" id="status" class="form-control" v-model="temporalValues.status">
-            <option v-for="optioStatus in optiosStatus" :key="optioStatus">{{ optioStatus }}</option>
+          <option v-for="optioStatus in optiosStatus" :key="optioStatus">{{ optioStatus }}</option>
         </select>
         <br />
-        <input class="update-button" type="submit" value="Update" @click="update" />
+        <input class="update-button" type="submit" value="Update" @click.prevent="update" v-if="!updated" />
         <!-- put: {{ temporalUpdatedStar }}<br>
         selected id: {{ selectedid }}<br>
         temp values: {{ temporalValues }}<br>
         range: {{ rangeFormat }}, values: {{ objectToArray }}<br>
-        deleted id: {{ deleteID }} -->
+        deleted id: {{ deleteID }}-->
+        <div v-if="updated">
+          <h3 style="text-align:center; font-size:16px; margin-top:0">The star is updated</h3>
+          <button class="close-button" @click="close">Close</button>
+        </div>
       </form>
     </div>
   </div>
 </body>
-  
 </template>
 
 <script>
-import axios from 'axios';
-import { eventBus } from '../main.js'
+import axios from "axios";
+import { eventBus } from "../main.js";
 
 export default {
   name: "Menu",
@@ -148,6 +242,7 @@ export default {
       active: false,
       isActive: false,
       submitted: false,
+      updated: false,
       starsMenu: "",
       selectedStar: null,
       temporalValues: "",
@@ -171,7 +266,7 @@ export default {
           ADDEDBY: "",
           DATE: "",
           STATUS: ""
-        },
+        }
       },
       updatedStar: "",
       selectedId: "",
@@ -181,16 +276,16 @@ export default {
           values: ""
         }
       },
-      optionsLocalPop: ['Evo', 'Ako', 'Mount', 'Skre', 'Harp', 'Zoni', 'None'],
-      optionsRadar: ['1', '2', '3', '1Har', '2Har', '3Har'],
-      optiosStatus: ['ALLY', 'ENEMY', 'NEUTRAL'],
+      optionsLocalPop: ["Evo", "Ako", "Mount", "Skre", "Harp", "Zoni", "None"],
+      optionsRadar: ["1", "2", "3", "1Har", "2Har", "3Har"],
+      optiosStatus: ["ALLY", "ENEMY", "NEUTRAL", "NAP"],
       optionsPlanetCount: [1, 2, 3, 4, 5, 6, 7, 8, 9]
     };
   },
 
   computed: {
     selectedid() {
-      return this.temporalValues.id
+      return this.temporalValues.id;
     },
     // testarray() {
     //   let object = temporalValues;
@@ -198,13 +293,14 @@ export default {
     //   console.log(Object.keys(object));
     // },
     rangeFormat() {
-      return this.temporalUpdatedStar.body.range = this.temporalValues.id + ':' + this.temporalValues.id;
+      return (this.temporalUpdatedStar.body.range =
+        this.temporalValues.id + ":" + this.temporalValues.id);
       console.log(temporalUpdatedStar.body.range);
     },
     objectToArray() {
       const obj = this.temporalValues;
       // const newobj = delete obj.id;
-      return this.temporalUpdatedStar.body.values = Object.values(obj);
+      return (this.temporalUpdatedStar.body.values = Object.values(obj));
     },
     deleteID() {
       const array = this.temporalUpdatedStar.body.values;
@@ -220,7 +316,7 @@ export default {
     toggleUpdate() {
       this.isActive = !this.isActive;
     },
-    
+
     // submit() {var temporalForm1 = '{"body": { "NAME": "11", "LONG": "11", "LAT": "11", "PLANETS": "11", "LOCAL": "11", "OWNER": "11", "CLOSEST": "11", "RADAR": "11", "COMMENTS": "11","ADDED": "11","Date": "11"}}'
     //   this.$http.post('https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend', temporalForm1 )
     //     .then(response => {
@@ -233,10 +329,38 @@ export default {
     // },
 
     // AXIOS
+
+    // submit() {
+    //   axios.post("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend", this.newStar
+    //       // {
+    //       //   headers: {
+    //       //     "Access-Control-Request-Method": "POST",
+    //       //     "Access-Control-Allow-Headers": "Content-Type",
+    //       //     "Content-Type": "application/json",
+    //       //     "Access-Control-Allow-Origin": "*",
+    //       //     "Access-Control-Allow-Methods": "*"
+    //       //   }
+    //       // }
+    //     )
+    //     .then(response => console.log(response))
+    //     .catch(error => console.log(error));
+    //     this.newStar = {};
+    // },
+
     submit() {
       axios.post('https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend', this.newStar)
-      .then(response => console.log(response))
-      .catch(error => console.log(error))
+      .then(response => {
+    console.log(response)
+    this.submitted = true;
+		})
+      .catch(error => {
+		console.log(error)
+    })
+    // this.newStar = "";
+    },
+    
+    close() {
+      this.newStar = "";
     },
 
     // VUE-RESOURCE
@@ -245,7 +369,7 @@ export default {
     //     .then(response => {
     //         console.log(response); // success callback
     //         this.submitted = true;
-    //         // alert('You added a new star'); 
+    //         // alert('You added a new star');
     //       },
     //       error => {
     //         console.log(error); // error callback
@@ -264,7 +388,7 @@ export default {
     // }
 
     // VUE-RESOURCE
-    // update() { 
+    // update() {
     //   // var temporalUpdatedStar = {
     //   //   "body": {
     //   //     "range": "151:151",
@@ -284,22 +408,27 @@ export default {
 
     // AXIOS
     update() {
-      axios.put('https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend', this.temporalUpdatedStar)
-      .then(response => console.log(response))
-      .catch(error => console.log(error))
+      axios.put("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend", this.temporalUpdatedStar)
+        .then(response => {
+          console.log(response)
+          this.updated = true;
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
 
     selectedStarName(event) {
       // this.temporalUpdatedStar.body.values = event.target.value
       // this.selectedCountry = event.target.options[event.target.options.selectedIndex].text
-      return starsMenu
-      alert('You selected a star!');
-      console.log('You selected a star');
+      return starsMenu;
+      alert("You selected a star!");
+      console.log("You selected a star");
       console.log(event.target.value);
     }
   },
   created() {
-    eventBus.$on('i-got-clicked', (value) => {
+    eventBus.$on("i-got-clicked", value => {
       this.starsMenu = value;
     });
   }
@@ -313,7 +442,6 @@ export default {
   color: transparent;
   /* color: aliceblue; */
   /* z-index: 1000; */
-  
 }
 
 .main-menu {
@@ -365,4 +493,13 @@ export default {
   width: 80px;
   align-self: center;
 }
+
+/* .close-button {
+  text-align: center;
+}
+
+.submitted-form {
+  align-self: center;
+  margin-left: 10px;
+} */
 </style>

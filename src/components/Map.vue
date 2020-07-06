@@ -15,7 +15,7 @@
     <l-tile-layer :url="url"></l-tile-layer>
     <!-- <l-image-overlay :url="url" :bounds="bounds" /> -->
 
-    <l-grid-layer class="grid" :tile-component="tileComponent"></l-grid-layer>
+    <!-- <l-grid-layer class="grid" :tile-component="tileComponent"></l-grid-layer> -->
     
     <!-- STARS MAP WITH ORIGINAL COORDS (wrong one, it has to be rotated 180 deg) -->
     <!-- <l-marker v-for="star in stars" :key="star.id" :lat-lng="star">
@@ -58,31 +58,41 @@
         <l-icon
           id="yellow-icon"
           :icon-size="[25, 25]"
-          icon-url="https://image.flaticon.com/icons/svg/304/304378.svg"
+          icon-url="https://app-html-comunicado.s3-us-west-2.amazonaws.com/image/yellow-star.png"
         ></l-icon>
         <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
       </div>
       <div v-else-if="stars[i].status === 'ENEMY'">
         <l-icon
           id="red-icon"
-          :icon-size="[25, 25]"
-          icon-url="https://image.flaticon.com/icons/svg/304/304341.svg"
+          :icon-size="[25, 25]" 
+          icon-url="https://app-html-comunicado.s3-us-west-2.amazonaws.com/image/red-star.png"
         ></l-icon>
+        <!-- icon-url="https://image.flaticon.com/icons/svg/304/304341.svg" -->
         <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
       </div>
       <div v-else-if="stars[i].status === 'NEUTRAL'">
         <l-icon
           id="blue-icon"
           :icon-size="[25, 25]"
-          icon-url="https://image.flaticon.com/icons/svg/304/304267.svg"
+          icon-url="https://app-html-comunicado.s3-us-west-2.amazonaws.com/image/blue-star.png"
         ></l-icon>
+        <!-- icon-url="https://image.flaticon.com/icons/svg/304/304267.svg" -->
         <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
+      </div>
+      <div v-else-if="stars[i].status === 'NAP'">
+        <l-icon
+          id="green-icon"
+          :icon-size="[25, 25]"
+          icon-url="https://app-html-comunicado.s3-us-west-2.amazonaws.com/image/green-star.png"
+        ></l-icon>
+        <!-- icon-url="https://image.flaticon.com/icons/svg/304/304304.svg" -->
       </div>
       <div v-else>
         <l-icon 
-          id="green-icon"
+          id="white-icon"
           :icon-size="[25, 25]"
-          icon-url="https://image.flaticon.com/icons/svg/304/304304.svg"
+          icon-url="https://app-html-comunicado.s3-us-west-2.amazonaws.com/image/white-star.png"
         ></l-icon>
         <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
       </div>
@@ -143,7 +153,7 @@ import axios from 'axios';
 import L from "leaflet";
 import { CRS } from "leaflet";
 // import ItemTemplate from './ItemTemplate.vue';
-import GridTemplate from './GridTemplate.vue';
+// import GridTemplate from './GridTemplate.vue';
 import { LeafletSearch } from 'leaflet-search';
 import { eventBus } from '../main.js'
 import {
@@ -212,7 +222,7 @@ export default {
         fillColor: '#6fcaee',
         weight: 1.5
       },
-      tileComponent: GridTemplate
+      // tileComponent: GridTemplate
       // tileComponent: {
       //   name: "tile-component",
       //   props: {
@@ -266,14 +276,14 @@ export default {
 
     var markersArray;
     
-    var hydMarker = new L.Marker([17.385044, 78.486671]);
-    var vskpMarker = new L.Marker([17.686816, 83.218482]);
-    var vjwdMarker = new L.Marker([16.506174, 80.648015]);
+    // var hydMarker = new L.Marker([17.385044, 78.486671]);
+    // var vskpMarker = new L.Marker([17.686816, 83.218482]);
+    // var vjwdMarker = new L.Marker([16.506174, 80.648015]);
 
 
     // someMarker.addTo(someLayerGroup); // add markers to a Leaflet layer group
 
-    var searchLayer = new L.layerGroup([hydMarker, vskpMarker, vjwdMarker]).addTo(this.$refs.map.mapObject);
+    // var searchLayer = new L.layerGroup([hydMarker, vskpMarker, vjwdMarker]).addTo(this.$refs.map.mapObject);
     // L.marker().addTo(searchLayer); // add markers to a Leaflet layer group
 
 //     for (i = 0; i < InvertedCoords.length; i++) {
@@ -284,21 +294,21 @@ export default {
 //     L.control.layers(null, overlay).addTo(map);
 // }
     
-    this.$refs.map.mapObject.addLayer(searchLayer);
+    // this.$refs.map.mapObject.addLayer(searchLayer);
 
-    const controlSearch = new L.Control.Search({
-      layer: searchLayer,
-      propertyName: 	'name',
-      propertyLoc: ['lat','lng'],
-      marker: L.circleMarker([0, 0], { radius: 30 }),
-      autoCollapse: true,
-      autoType: true,
-      minLength: 2,
-      textPlaceholder: 'search star by name...'
+    // const controlSearch = new L.Control.Search({
+    //   layer: searchLayer,
+    //   propertyName: 	'name',
+    //   propertyLoc: ['lat','lng'],
+    //   marker: L.circleMarker([0, 0], { radius: 30 }),
+    //   autoCollapse: true,
+    //   autoType: true,
+    //   minLength: 2,
+    //   textPlaceholder: 'search star by name...'
   //     inicial: false,
   //     zoom: 11,
   //     marker: false,
-  });
+  // });
   // this.$refs.map.mapObject.addControl(controlSearch); //descomentar
   //   map.addControl(controlSearch);
   },
