@@ -10,21 +10,9 @@
       <button class="add-button" @click="toggleAdd">Add Star</button>
       <form class="form_add-star" v-if="active">
         <label>Name:</label>
-        <input
-          required
-          type="text"
-          id="name"
-          class="form-control required-input"
-          v-model="newStar.body.NAME"
-        />
+        <input required type="text" id="name" class="form-control required-input" v-model="newStar.body.NAME">
         <label>Longitud:</label>
-        <input
-          required
-          type="number"
-          id="lng"
-          class="form-control required-input"
-          v-model="newStar.body.LONG"
-        />
+        <input required type="number" id="lng" class="form-control required-input" v-model="newStar.body.LONG">
         <label>Latitud:</label>
         <input
           required
@@ -32,7 +20,7 @@
           id="lat"
           class="form-control required-input"
           v-model="newStar.body.LAT"
-        />
+        >
         <label>Number of Planets:</label>
         <select type="number" id="planets" class="form-control" v-model="newStar.body.PLANETCOUNT">
           <option
@@ -82,7 +70,7 @@
           id="added-by"
           class="form-control required-input"
           v-model="newStar.body.ADDEDBY"
-        />
+        >
         <label>Date:</label>
         <input
           required
@@ -92,15 +80,15 @@
           id="date"
           class="form-control required-input"
           v-model="newStar.body.DATE"
-        />
+        >
         <label>Status:</label>
         <select type="text" id="status" class="form-control" v-model="newStar.body.STATUS">
           <option v-for="optioStatus in optiosStatus" :key="optioStatus">{{ optioStatus }}</option>
         </select>
-        <br />
-        <input class="submit-button" type="submit" value="Sumbit" @click.prevent="submit" v-if="!submitted" />
+        <br>
+        <input class="submit-button" type="submit" value="Sumbit" @click.prevent="submit" v-if="!submitted" :class="{ disabled: isDisabled }" :disabled="isDisabled">
         <div class="submitted-form" v-if="submitted">
-          <h3 style="text-align:center; font-size:16px; margin-top:0">You added a the star {{ newStar.body.NAME }}</h3>
+          <h3 style="text-align:center; font-size:16px; margin-top:0">You added the star {{ newStar.body.NAME }}</h3>
           <button class="close-button" @click="close">Close</button>
         </div>
         <!-- <div>Your data: {{ newStar }}</div>
@@ -118,12 +106,9 @@
         <input type="text" id="starId" class="form-control" placeholder="" v-model="temporalUpdatedStar.body.range">-->
         <label>Name:</label>
         <select required type="text" id="nameSearch" class="form-control" v-model="temporalValues">
-          <option
-            v-for="starMenu in starsMenu"
-            :key="starMenu.id"
-            :value="starMenu"
-            @change="selectedStarName($event)"
-          >{{ starMenu.name }}</option>
+          <option v-for="starMenu in starsMenu" :key="starMenu.id" :value="starMenu" @change="selectedStarName($event)">
+            {{ starMenu.name }}
+          </option>
         </select>
         <!-- <label>Name:</label>
         <input required type="text" id="name" class="form-control" v-model="temporalValues.name">-->
@@ -198,8 +183,7 @@
           type="text"
           id="added-by"
           class="form-control required-input"
-          v-model="temporalValues.addedBy"
-        />
+          v-model="temporalValues.addedBy">
         <label>Date:</label>
         <input
           required
@@ -208,14 +192,14 @@
           max="2030-12-31"
           id="date"
           class="form-control required-input"
-          v-model="temporalValues.date"
-        />
+          v-model="temporalValues.date">
         <label>Status:</label>
         <select type="text" id="status" class="form-control" v-model="temporalValues.status">
           <option v-for="optioStatus in optiosStatus" :key="optioStatus">{{ optioStatus }}</option>
         </select>
         <br />
-        <input class="update-button" type="submit" value="Update" @click.prevent="update" v-if="!updated" />
+        <!-- <input class="update-button" type="submit" value="Update" @click.prevent="update" v-if="!updated" :class="{ disabledUpdate: isDisabledUpdate }" :disabledUpdate="isDisabledUpdate"> -->
+        <input class="update-button" type="submit" value="Update" @click.prevent="update" v-if="!updated">
         <!-- put: {{ temporalUpdatedStar }}<br>
         selected id: {{ selectedid }}<br>
         temp values: {{ temporalValues }}<br>
@@ -306,7 +290,22 @@ export default {
       const array = this.temporalUpdatedStar.body.values;
       const removedid = array.shift();
       // console.log(array);
-    }
+    },
+
+    isDisabled () {
+      if (this.newStar.body.NAME.length > 0 && this.newStar.body.LAT.length > 0 && this.newStar.body.LONG.length > 0 && this.newStar.body.ADDEDBY.length > 0 && this.newStar.body.DATE.length > 0) {
+        return false;
+      }  else {
+        return true;
+      }
+    },
+    // isDisabledUpdate () {
+    //   if (this.temporalUpdatedStar.body.values.length > 0) {
+    //     return false;
+    //   } else {
+    //     return true;
+    //   }
+    // }
   },
 
   methods: {
@@ -488,7 +487,8 @@ export default {
 }
 
 .submit-button,
-.update-button {
+.update-button,
+.close-button {
   cursor: pointer;
   width: 80px;
   align-self: center;
