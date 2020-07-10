@@ -13,7 +13,6 @@
   </div>
   <l-map class="map" ref="map" :min-zoom="minZoom" :crs="crs">
     <l-tile-layer :url="url"></l-tile-layer>
-    <!-- <l-image-overlay :url="url" :bounds="bounds" /> -->
 
     <!-- <l-grid-layer class="grid" :tile-component="tileComponent"></l-grid-layer> -->
     
@@ -68,7 +67,6 @@
           :icon-size="[25, 25]" 
           icon-url="https://app-html-comunicado.s3-us-west-2.amazonaws.com/image/red-star.png"
         ></l-icon>
-        <!-- icon-url="https://image.flaticon.com/icons/svg/304/304341.svg" -->
         <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
       </div>
       <div v-else-if="stars[i].status === 'NEUTRAL'">
@@ -77,7 +75,6 @@
           :icon-size="[25, 25]"
           icon-url="https://app-html-comunicado.s3-us-west-2.amazonaws.com/image/blue-star.png"
         ></l-icon>
-        <!-- icon-url="https://image.flaticon.com/icons/svg/304/304267.svg" -->
         <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
       </div>
       <div v-else-if="stars[i].status === 'NAP'">
@@ -86,7 +83,6 @@
           :icon-size="[25, 25]"
           icon-url="https://app-html-comunicado.s3-us-west-2.amazonaws.com/image/green-star.png"
         ></l-icon>
-        <!-- icon-url="https://image.flaticon.com/icons/svg/304/304304.svg" -->
       </div>
       <div v-else>
         <l-icon 
@@ -198,7 +194,6 @@ export default {
         [-2600, -2700],
         [1000, 3000]
       ],
-      // minZoom: 0.5,
       minZoom: 0,
       crs: L.CRS.Simple,
       stars: [],
@@ -320,9 +315,6 @@ export default {
         return this.newArraw[i];
       }
     },
-    // getLabel(star) {
-    //   return star.name
-    // },
     updateStars(text) {
       this.$http.get("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend")
         .then(response => {

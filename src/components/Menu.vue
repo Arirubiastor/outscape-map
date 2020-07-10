@@ -113,64 +113,43 @@
         <!-- <label>Name:</label>
         <input required type="text" id="name" class="form-control" v-model="temporalValues.name">-->
         <label>Longitud:</label>
-        <input
-          required
-          type="number"
-          id="lng"
-          class="form-control required-input"
-          v-model="temporalValues.lng"
-        />
+        <input required type="number" id="lng" class="form-control required-input" v-model="temporalValues.lng">
         <!-- <label>Latitud:</label>
         <input required type="number" id="lat" class="form-control" v-model="temporalUpdatedStar.body.values[2]" />-->
         <label>Latitud:</label>
-        <input
-          required
-          type="number"
-          id="lat"
-          class="form-control required-input"
-          v-model="temporalValues.lat"
-        />
+        <input required type="number" id="lat" class="form-control required-input" v-model="temporalValues.lat">
         <label>Number of Planets:</label>
-        <select
-          type="number"
-          id="planets"
-          class="form-control"
-          v-model="temporalValues.planetCount"
-        >
-          <option
-            v-for="optionPlanetCount in optionsPlanetCount"
-            :key="optionPlanetCount"
-          >{{ optionPlanetCount }}</option>
+        <select type="number" id="planets" class="form-control" v-model="temporalValues.planetCount">
+          <option v-for="optionPlanetCount in optionsPlanetCount" :key="optionPlanetCount">
+          {{ optionPlanetCount }}
+          </option>
         </select>
         <label>Local Population 1:</label>
         <select type="text" id="local-pop1" class="form-control" v-model="temporalValues.localPop1">
-          <option
-            v-for="optionLocalPop in optionsLocalPop"
-            :key="optionLocalPop"
-          >{{ optionLocalPop }}</option>
+          <option v-for="optionLocalPop in optionsLocalPop" :key="optionLocalPop">
+            {{ optionLocalPop }}
+          </option>
         </select>
         <label>Planet 1:</label>
-        <input type="text" id="planet1" class="form-control" v-model="temporalValues.planet1" />
+        <input type="text" id="planet1" class="form-control" v-model="temporalValues.planet1">
         <label>Local Population 2:</label>
         <select type="text" id="local-pop2" class="form-control" v-model="temporalValues.localPop2">
-          <option
-            v-for="optionLocalPop in optionsLocalPop"
-            :key="optionLocalPop"
-          >{{ optionLocalPop }}</option>
+          <option v-for="optionLocalPop in optionsLocalPop" :key="optionLocalPop">
+            {{ optionLocalPop }}
+          </option>
         </select>
         <label>Planet 2:</label>
-        <input type="text" id="planet2" class="form-control" v-model="temporalValues.planet2" />
+        <input type="text" id="planet2" class="form-control" v-model="temporalValues.planet2">
         <label>Local Population 3:</label>
         <select type="text" id="local-pop3" class="form-control" v-model="temporalValues.localPop3">
-          <option
-            v-for="optionLocalPop in optionsLocalPop"
-            :key="optionLocalPop"
-          >{{ optionLocalPop }}</option>
+          <option v-for="optionLocalPop in optionsLocalPop" :key="optionLocalPop">
+            {{ optionLocalPop }}
+          </option>
         </select>
         <label>Planet 3:</label>
-        <input type="text" id="planet3" class="form-control" v-model="temporalValues.planet3" />
+        <input type="text" id="planet3" class="form-control" v-model="temporalValues.planet3">
         <label>System Owner:</label>
-        <input type="text" id="owner" class="form-control" v-model="temporalValues.systemOwner" />
+        <input type="text" id="owner" class="form-control" v-model="temporalValues.systemOwner">
         <label>Radar:</label>
         <select type="number" id="radar" class="form-control" v-model="temporalValues.radar">
           <option v-for="optionRadar in optionsRadar" :key="optionRadar">{{ optionRadar }}</option>
@@ -205,7 +184,7 @@
         temp values: {{ temporalValues }}<br>
         range: {{ rangeFormat }}, values: {{ objectToArray }}<br>
         deleted id: {{ deleteID }}-->
-        <div v-if="updated">
+        <div class="updated-from" v-if="updated">
           <h3 style="text-align:center; font-size:16px; margin-top:0">The star is updated</h3>
           <button class="close-button" @click="close">Close</button>
         </div>
@@ -231,7 +210,6 @@ export default {
       selectedStar: null,
       temporalValues: "",
       values: "",
-      // latNeg: "",
       newStar: {
         body: {
           NAME: "",
@@ -271,11 +249,6 @@ export default {
     selectedid() {
       return this.temporalValues.id;
     },
-    // testarray() {
-    //   let object = temporalValues;
-    //   return Object.keys(object)
-    //   console.log(Object.keys(object));
-    // },
     rangeFormat() {
       return (this.temporalUpdatedStar.body.range =
         this.temporalValues.id + ":" + this.temporalValues.id);
@@ -324,7 +297,6 @@ export default {
     //       console.log(error);
     //     },);
     //   console.log(temporalForm1);
-    //   this.temporalForm = "";
     // },
 
     // AXIOS
@@ -343,7 +315,6 @@ export default {
     //     )
     //     .then(response => console.log(response))
     //     .catch(error => console.log(error));
-    //     this.newStar = {};
     // },
 
     submit() {
@@ -355,7 +326,6 @@ export default {
       .catch(error => {
 		console.log(error)
     })
-    // this.newStar = "";
     },
     
     close() {
@@ -494,12 +464,9 @@ export default {
   align-self: center;
 }
 
-/* .close-button {
-  text-align: center;
-}
-
-.submitted-form {
-  align-self: center;
-  margin-left: 10px;
-} */
+.submitted-form,
+.updated-from {
+  display: flex;
+  flex-direction: column;
+} 
 </style>
