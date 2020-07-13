@@ -240,7 +240,7 @@ export default {
       },
       optionsLocalPop: ["Evo", "Ako", "Mount", "Skre", "Harp", "Zoni", "None"],
       optionsRadar: ["1", "2", "3", "1Har", "2Har", "3Har"],
-      optiosStatus: ["ALLY", "ENEMY", "NEUTRAL", "NAP"],
+      optiosStatus: ["", "ALLY", "ENEMY", "NEUTRAL", "NAP"],
       optionsPlanetCount: [1, 2, 3, 4, 5, 6, 7, 8, 9]
     };
   },
