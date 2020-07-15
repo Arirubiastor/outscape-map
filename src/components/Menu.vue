@@ -300,25 +300,8 @@ export default {
     // },
 
     // AXIOS
-
-    // submit() {
-    //   axios.post("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend", this.newStar
-    //       // {
-    //       //   headers: {
-    //       //     "Access-Control-Request-Method": "POST",
-    //       //     "Access-Control-Allow-Headers": "Content-Type",
-    //       //     "Content-Type": "application/json",
-    //       //     "Access-Control-Allow-Origin": "*",
-    //       //     "Access-Control-Allow-Methods": "*"
-    //       //   }
-    //       // }
-    //     )
-    //     .then(response => console.log(response))
-    //     .catch(error => console.log(error));
-    // },
-
     submit() {
-      axios.post('https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend', this.newStar)
+      axios.post('/test/outscapebackend', this.newStar)
       .then(response => {
     console.log(response)
     this.submitted = true;
@@ -377,7 +360,7 @@ export default {
 
     // AXIOS
     update() {
-      axios.put("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend", this.temporalUpdatedStar)
+      axios.put("/test/outscapebackend", this.temporalUpdatedStar)
         .then(response => {
           console.log(response)
           this.updated = true;

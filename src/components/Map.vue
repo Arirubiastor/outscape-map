@@ -256,20 +256,38 @@ export default {
     this.$refs.map.mapObject.setView([552, 40], 1); // setView coords for the inverted coordinates (correct!)
 
     // this.$refs.map.mapObject.fitBounds(bounds);
+  },
 
-    this.$http.get("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend")
-        .then(response => {
-          return response.json();
-        })
-      .then(data => {
-        const resultArray = [];
+  created() {
+    // VUE-RESOURSE
+    // this.$http.get("https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com/test/outscapebackend")
+    //     .then(response => {
+    //       return response.json();
+    //     })
+    //   .then(data => {
+    //     const resultArray = [];
+    //     for (let key in data) {
+    //       resultArray.push(data[key]);
+    //     }
+    //     this.stars = resultArray;
+    //   });
+    
+    // AXIOS
+    axios.get('/test/outscapebackend')
+      .then(response => {
+        console.log(response)
+        const data = response.data
+        const resultArray = []
         for (let key in data) {
-          resultArray.push(data[key]);
+          resultArray.push(data[key])
         }
-        this.stars = resultArray;
-      });
+        console.log(resultArray)
+        this.stars = resultArray
+      })
+      .catch(error => console.log(error))
 
-    var markersArray;
+  // SEARCH.CONTROL PLUGIN
+    // var markersArray;
     
     // var hydMarker = new L.Marker([17.385044, 78.486671]);
     // var vskpMarker = new L.Marker([17.686816, 83.218482]);
