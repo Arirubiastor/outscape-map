@@ -104,10 +104,16 @@
       <form class="form_add-star" v-if="isActive">
         <!-- <label>Id:</label>
         <input type="text" id="starId" class="form-control" placeholder="" v-model="temporalUpdatedStar.body.range">-->
-        <label>Name:</label>
+        <!-- <label>Name:</label>
         <select required type="text" id="nameSearch" class="form-control" v-model="temporalValues">
           <option v-for="starMenu in starsMenu" :key="starMenu.id" :value="starMenu" @change="selectedStarName($event)">
             {{ starMenu.name }}
+          </option>
+        </select> -->
+        <label>Name:</label>
+        <select required type="text" id="nameSearch" class="form-control" v-model="temporalValues">
+          <option v-for="star in stars" :key="star.id" :value="star" v-bind:stars="stars">
+            {{ star.name }}
           </option>
         </select>
         <!-- <label>Name:</label>
@@ -210,6 +216,7 @@ export default {
       selectedStar: null,
       temporalValues: "",
       values: "",
+      // stars: [],
       newStar: {
         body: {
           NAME: "",
@@ -243,6 +250,11 @@ export default {
       optiosStatus: ["", "ALLY", "ENEMY", "NEUTRAL", "NAP"],
       optionsPlanetCount: [1, 2, 3, 4, 5, 6, 7, 8, 9]
     };
+  },
+  props: {
+    stars: {
+      type: Array
+    }
   },
 
   computed: {
@@ -405,6 +417,8 @@ export default {
   flex-direction: row;
   justify-content: flex-end;
   margin-right: 100px;
+  
+  margin-top: -8px;
 }
 
 .add-button {
@@ -413,7 +427,7 @@ export default {
 }
 
 .edit-button {
-  margin-right: 152px;
+  margin-right: 10px;
   cursor: pointer;
 }
 

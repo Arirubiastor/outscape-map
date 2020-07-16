@@ -22,6 +22,7 @@
     "css-loader": "^0.28.7",
     "express": "^4.17.1",
     "file-loader": "^1.1.4",
+    "firebase": "^7.16.0",
     "leaflet": "^1.6.0",
     "leaflet-search": "^2.9.8",
     "nuxt-leaflet": "0.0.21",
@@ -29,6 +30,7 @@
     "vue": "2.6.10",
     "vue-loader": "^13.0.5",
     "vue-resource": "^1.5.1",
+    "vue-router": "^3.3.4",
     "vue-template-compiler": "2.6.10",
     "vue2-leaflet": "^2.5.2",
     "webpack": "^3.6.0"

@@ -7,7 +7,7 @@
 
   <!-- <leaflet-search></leaflet-search> -->
 
-  <button class="search-by-name" @click="StarsData()">Search by Name</button>
+  <!-- <button class="search-by-name" @click="StarsData()">Search by Name</button> -->
   <div>
     <li v-for="(message, index) in messageList" :item="message" :key="index">{{ message }}</li>
   </div>
@@ -51,6 +51,8 @@
     </l-marker> -->
 
     <!-- INVERTED COORDS NEW STARS MAP -->
+    <!-- <l-menu @inputData="updateMessage" v-bind:stars="stars"></l-menu> -->
+    <l-menu v-bind:stars="stars"></l-menu>
     <l-layer-group>
       <l-marker v-for="(newCoords, i) in InvertedCoords" :key="i" :lat-lng="newCoords">
       <div v-if="stars[i].status === 'ALLY'">
@@ -148,6 +150,7 @@
 import axios from 'axios';
 import L from "leaflet";
 import { CRS } from "leaflet";
+import LMenu from "./Menu";
 // import ItemTemplate from './ItemTemplate.vue';
 // import GridTemplate from './GridTemplate.vue';
 import { LeafletSearch } from 'leaflet-search';
@@ -178,7 +181,8 @@ export default {
     LGridLayer,
     LCircle,
     LeafletSearch,
-    LLayerGroup
+    LLayerGroup,
+    LMenu
   },
 
   props: {
@@ -346,9 +350,9 @@ export default {
         this.stars = resultArray;
       });
     },
-    StarsData() {
-      eventBus.$emit('i-got-clicked', this.stars)
-    },
+    // StarsData() {
+    //   eventBus.$emit('i-got-clicked', this.stars)
+    // },
     
   }
 };
@@ -360,7 +364,7 @@ export default {
 .search-by-name {
   cursor: pointer;
   position: absolute;
-  z-index: 500;
+  z-index: 501;
   /* margin-left: 755px; */
   margin-right: 17px;
   /* text-align: right; */
