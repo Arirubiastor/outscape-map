@@ -2,24 +2,22 @@
 <body>
   <!-- put: {{ temporalUpdatedStar }}<br> -->
   <!-- selected id: {{ temporalValues.id }}<br> -->
-  <div
-    class="hide-test"
-  >temp values: {{ temporalValues }}, range: {{ rangeFormat }}, values: {{ objectToArray }}, deleted id: {{ deleteID }}</div>
+  <div class="hide-test">temp values: {{ temporalValues }}, range: {{ rangeFormat }}, values: {{ objectToArray }}, deleted id: {{ deleteID }}</div>
   <div class="main-menu">
     <div>
       <button class="add-button" @click="toggleAdd">Add Star</button>
       <form class="form_add-star" v-if="active">
         <label>Name:</label>
-        <input required type="text" id="name" class="form-control required-input" v-model="newStar.body.NAME">
+        <input required type="text" id="name" class="form-control required-input" v-model.lazy="newStar.body.NAME">
         <label>Longitud:</label>
-        <input required type="number" id="lng" class="form-control required-input" v-model="newStar.body.LONG">
+        <input required type="number" id="lng" class="form-control required-input" v-model.lazy="newStar.body.LONG">
         <label>Latitud:</label>
         <input
           required
           type="number"
           id="lat"
           class="form-control required-input"
-          v-model="newStar.body.LAT"
+          v-model.lazy="newStar.body.LAT"
         >
         <label>Number of Planets:</label>
         <select type="number" id="planets" class="form-control" v-model="newStar.body.PLANETCOUNT">
@@ -36,7 +34,7 @@
           >{{ optionLocalPop }}</option>
         </select>
         <label>Planet 1:</label>
-        <input type="text" id="planet1" class="form-control" v-model="newStar.body.PLANET1" />
+        <input type="text" id="planet1" class="form-control" v-model.lazy="newStar.body.PLANET1" />
         <label>Local Population 2:</label>
         <select type="text" id="local-pop2" class="form-control" v-model="newStar.body.LOCALPOP2">
           <option
@@ -45,7 +43,7 @@
           >{{ optionLocalPop }}</option>
         </select>
         <label>Planet 2:</label>
-        <input type="text" id="planet2" class="form-control" v-model="newStar.body.PLANET2" />
+        <input type="text" id="planet2" class="form-control" v-model.lazy="newStar.body.PLANET2" />
         <label>Local Population 3:</label>
         <select type="text" id="local-pop3" class="form-control" v-model="newStar.body.LOCALPOP3">
           <option
@@ -54,22 +52,22 @@
           >{{ optionLocalPop }}</option>
         </select>
         <label>Planet 3:</label>
-        <input type="text" id="planet3" class="form-control" v-model="newStar.body.PLANET3" />
+        <input type="text" id="planet3" class="form-control" v-model.lazy="newStar.body.PLANET3" />
         <label>System Owner:</label>
-        <input type="text" id="owner" class="form-control" v-model="newStar.body.SYSTEMOWNER" />
+        <input type="text" id="owner" class="form-control" v-model.lazy="newStar.body.SYSTEMOWNER" />
         <label>Radar:</label>
         <select type="number" id="radar" class="form-control" v-model="newStar.body.RADAR">
           <option v-for="optionRadar in optionsRadar" :key="optionRadar">{{ optionRadar }}</option>
         </select>
         <label>Comments:</label>
-        <textarea type="text" id="comments" class="form-control" v-model="newStar.body.COMMENTS" />
+        <textarea type="text" id="comments" class="form-control" v-model.lazy="newStar.body.COMMENTS" />
         <label>Added by:</label>
         <input
           required
           type="text"
           id="added-by"
           class="form-control required-input"
-          v-model="newStar.body.ADDEDBY"
+          v-model.lazy="newStar.body.ADDEDBY"
         >
         <label>Date:</label>
         <input
@@ -137,7 +135,7 @@
           </option>
         </select>
         <label>Planet 1:</label>
-        <input type="text" id="planet1" class="form-control" v-model="temporalValues.planet1">
+        <input type="text" id="planet1" class="form-control" v-model.lazy="temporalValues.planet1">
         <label>Local Population 2:</label>
         <select type="text" id="local-pop2" class="form-control" v-model="temporalValues.localPop2">
           <option v-for="optionLocalPop in optionsLocalPop" :key="optionLocalPop">
@@ -145,7 +143,7 @@
           </option>
         </select>
         <label>Planet 2:</label>
-        <input type="text" id="planet2" class="form-control" v-model="temporalValues.planet2">
+        <input type="text" id="planet2" class="form-control" v-model.lazy="temporalValues.planet2">
         <label>Local Population 3:</label>
         <select type="text" id="local-pop3" class="form-control" v-model="temporalValues.localPop3">
           <option v-for="optionLocalPop in optionsLocalPop" :key="optionLocalPop">
@@ -153,22 +151,22 @@
           </option>
         </select>
         <label>Planet 3:</label>
-        <input type="text" id="planet3" class="form-control" v-model="temporalValues.planet3">
+        <input type="text" id="planet3" class="form-control" v-model.lazy="temporalValues.planet3">
         <label>System Owner:</label>
-        <input type="text" id="owner" class="form-control" v-model="temporalValues.systemOwner">
+        <input type="text" id="owner" class="form-control" v-model.lazy="temporalValues.systemOwner">
         <label>Radar:</label>
         <select type="number" id="radar" class="form-control" v-model="temporalValues.radar">
           <option v-for="optionRadar in optionsRadar" :key="optionRadar">{{ optionRadar }}</option>
         </select>
         <label>Comments:</label>
-        <textarea type="text" id="comments" class="form-control" v-model="temporalValues.comments" />
+        <textarea type="text" id="comments" class="form-control" v-model.lazy="temporalValues.comments" />
         <label>Added by:</label>
         <input
           required
           type="text"
           id="added-by"
           class="form-control required-input"
-          v-model="temporalValues.addedBy">
+          v-model.lazy="temporalValues.addedBy">
         <label>Date:</label>
         <input
           required
@@ -276,7 +274,6 @@ export default {
       const removedid = array.shift();
       // console.log(array);
     },
-
     isDisabled () {
       if (this.newStar.body.NAME.length > 0 && this.newStar.body.LAT.length > 0 && this.newStar.body.LONG.length > 0 && this.newStar.body.ADDEDBY.length > 0 && this.newStar.body.DATE.length > 0) {
         return false;

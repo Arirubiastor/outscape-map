@@ -8,6 +8,9 @@
   <!-- <leaflet-search></leaflet-search> -->
 
   <!-- <button class="search-by-name" @click="StarsData()">Search by Name</button> -->
+
+  <navbar></navbar>
+
   <div>
     <li v-for="(message, index) in messageList" :item="message" :key="index">{{ message }}</li>
   </div>
@@ -151,6 +154,8 @@ import axios from 'axios';
 import L from "leaflet";
 import { CRS } from "leaflet";
 import LMenu from "./Menu";
+import { mapGetters } from "vuex";
+import Navbar from './Navbar';
 // import ItemTemplate from './ItemTemplate.vue';
 // import GridTemplate from './GridTemplate.vue';
 import { LeafletSearch } from 'leaflet-search';
@@ -182,7 +187,8 @@ export default {
     LCircle,
     LeafletSearch,
     LLayerGroup,
-    LMenu
+    LMenu,
+    Navbar
   },
 
   props: {
@@ -247,6 +253,12 @@ export default {
       return newArraw;
       console.log(newArraw);
     },
+
+    // map `this.user` to `this.$store.getters.user`
+    ...mapGetters({
+      user: "user"
+    })
+
   },
 
   watch: {
@@ -279,13 +291,13 @@ export default {
     // AXIOS
     axios.get('/test/outscapebackend')
       .then(response => {
-        console.log(response)
+        // console.log(response) // do not delete, useful for testing
         const data = response.data
         const resultArray = []
         for (let key in data) {
           resultArray.push(data[key])
         }
-        console.log(resultArray)
+        // console.log(resultArray) // do not delete, useful for testing
         this.stars = resultArray
       })
       .catch(error => console.log(error))
@@ -361,14 +373,31 @@ export default {
 <style scoped>
 @import "~leaflet-search/src/leaflet-search.css";
 
-.search-by-name {
+/* .search-by-name {
   cursor: pointer;
   position: absolute;
   z-index: 501;
-  /* margin-left: 755px; */
   margin-right: 17px;
-  /* text-align: right; */
   right: 0;
+} */
+
+.leaflet-top {
+  top: 20px;
+}
+
+.alert-success {
+  height: 20px;
+  position: absolute;
+  z-index: 500;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  color: white;
+  margin-top: 4px;
+  margin-left: 80px;
+  font-size: 14px;
+  font-family: Arial;
+  font-weight: normal;
 }
 
 .map {

@@ -5,6 +5,8 @@ import App from './App.vue'
 import axios from 'axios' // To access HTTP
 import * as firebase from 'firebase'
 import { routes } from './routes';// routes test udemy!
+import store from "./store";
+// import regeneratorRuntime from "regenerator-runtime";
 import 'leaflet/dist/leaflet.css'; // i gues for leaflet search
 
 axios.defaults.baseURL = 'https://pyet2m3rzl.execute-api.us-east-1.amazonaws.com'
@@ -16,8 +18,9 @@ Vue.use(VueRouter);// routes test udemy!
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
-}); // routes test udemy!
+  mode: 'history',
+  // base: process.env.BASE_URL
+});
 
 Vue.config.productionTip = false
 
@@ -35,12 +38,36 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
+firebase.auth().onAuthStateChanged(user => {
+  store.dispatch("fetchUser", user);
+});
+
+
+router.beforeEach((to, from, next) => {
+
+  const currentUser = firebase.auth().currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !currentUser) {
+    next('/');
+  } else if (requiresAuth && currentUser) {
+    next();
+  } else {
+    next();
+  }
+
+});
+
+firebase.auth().onAuthStateChanged(function (user) {
+
 new Vue({
   el: '#app',
   router, // routes test udemy!
+  store,
   render: h => h(App)
 })
 
+});
 
 // import { Icon } from 'leaflet';
 
