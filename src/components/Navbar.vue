@@ -80,6 +80,8 @@ export default {
         return false;
       } else if (this.user.data.email == 'arianarubigo@gmail.com') {
         return false;
+      } else if (this.user.data.email == 'admin@outscape.com') {
+        return false;
       } else {
         return true;
       }
