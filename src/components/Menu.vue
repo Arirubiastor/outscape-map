@@ -110,7 +110,7 @@
         </select> -->
         <label>Name:</label>
         <select required type="text" id="nameSearch" class="form-control" v-model="temporalValues">
-          <option v-for="star in stars" :key="star.id" :value="star" v-bind:stars="stars">
+          <option v-for="star in sortedArray" :key="star.id" :value="star" v-bind:stars="stars">
             {{ star.name }}
           </option>
         </select>
@@ -281,13 +281,18 @@ export default {
         return true;
       }
     },
-    // isDisabledUpdate () {
-    //   if (this.temporalUpdatedStar.body.values.length > 0) {
-    //     return false;
-    //   } else {
-    //     return true;
-    //   }
-    // }
+    sortedArray() {
+      function compare(a, b) {
+        if (a.name < b.name) {
+          return -1;
+        } 
+        if (a.name > b.name) {
+          return 1
+        }
+        return 0;
+      }
+      return this.stars.sort(compare);
+    }
   },
 
   methods: {

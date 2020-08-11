@@ -1,8 +1,5 @@
 <template>
   <div id='app'>
-    <!-- <l-menu @inputData="updateMessage"></l-menu> -->
-    <!-- <app-map :msg="childData"></app-map> -->
-    
     <!-- <h1>Outscape Community</h1>
     <hr> -->
     <router-view></router-view>
@@ -27,14 +24,9 @@ export default {
   },
   data: function() {
     return {
-      // childData: "",
     };
   },
   methods: {
-    // updateMessage(variable) {
-    //   this.childData = variable;
-    // },
-    
   }
 };
 </script>
