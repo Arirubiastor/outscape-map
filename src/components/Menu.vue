@@ -4,9 +4,9 @@
   <!-- selected id: {{ temporalValues.id }}<br> -->
   <div class="hide-test">temp values: {{ temporalValues }}, range: {{ rangeFormat }}, values: {{ objectToArray }}, deleted id: {{ deleteID }}</div>
   <div class="main-menu">
-    <div>
+    <div class="wrapper__add-star">
       <button class="add-button" @click="toggleAdd">Add Star</button>
-      <form class="form_add-star" v-if="active">
+      <form class="form" v-if="active">
         <label>Name:</label>
         <input required type="text" id="name" class="form-control required-input" v-model.lazy="newStar.body.NAME">
         <label>Longitud:</label>
@@ -99,7 +99,7 @@
     </div>-->
     <div>
       <button class="edit-button" @click="toggleUpdate">Edit Star</button>
-      <form class="form_add-star" v-if="isActive">
+      <form class="form" v-if="isActive">
         <!-- <label>Id:</label>
         <input type="text" id="starId" class="form-control" placeholder="" v-model="temporalUpdatedStar.body.range">-->
         <!-- <label>Name:</label>
@@ -402,6 +402,10 @@ export default {
 </script>
 
 <style scoped>
+* {
+  box-sizing: border-box;
+}
+
 .hide-test {
   position: absolute;
   z-index: 1;
@@ -433,7 +437,15 @@ export default {
   cursor: pointer;
 }
 
-.form_add-star {
+input[type=text], select, textarea {
+  resize: vertical;
+}
+
+/* .wrapper__add-star {
+  height: 100%;
+} */
+
+.form {
   display: flex;
   flex-direction: column;
   background: white;
@@ -441,6 +453,8 @@ export default {
   margin-right: 30px;
   width: 300px;
   padding: 5px;
+  height: 700px;
+  /* overflow-y: scroll; */
 }
 
 .required-input {
@@ -453,6 +467,8 @@ export default {
 
 .form_update-star {
   margin-right: 32px;
+  max-height: 709px;
+  overflow-y: auto;
 }
 
 .submit-button,
@@ -467,5 +483,19 @@ export default {
 .updated-from {
   display: flex;
   flex-direction: column;
-} 
+}
+
+@media screen and (max-height: 760px) {
+  .form {
+    overflow-y: scroll;
+    height: 600px;
+    height: calc(100vh - 70px);
+  }
+  input[type=date] {
+    min-height: 21px;
+  } 
+  textarea {
+    min-height: 50px;
+  }
+}
 </style>
