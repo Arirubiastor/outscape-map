@@ -166,7 +166,7 @@
           id="added-by"
           class="form-control required-input"
           v-model.lazy="temporalValues.addedBy">
-        <!-- <label>Date:</label> -->
+        <!-- <label>Date:</label>  -->
         <input
           required
           type="hidden"
