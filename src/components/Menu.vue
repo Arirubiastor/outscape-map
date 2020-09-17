@@ -61,18 +61,17 @@
         </select>
         <label>Comments:</label>
         <textarea type="text" id="comments" class="form-control" v-model.lazy="newStar.body.COMMENTS" />
-        <label>Added by:</label>
+        <!-- <label>Added by: {{ user.data.displayName }}</label> -->
         <input
-          required
-          type="text"
+          type="hidden"
           id="added-by"
           class="form-control required-input"
           v-model.lazy="newStar.body.ADDEDBY"
         >
-        <label>Date:</label>
+        <!-- <label>Date:</label> -->
         <input
           required
-          type="date"
+          type="hidden"
           min="2019-01-01"
           max="2030-12-31"
           id="date"
@@ -160,17 +159,17 @@
         </select>
         <label>Comments:</label>
         <textarea type="text" id="comments" class="form-control" v-model.lazy="temporalValues.comments" />
-        <label>Added by:</label>
+        <!-- <label>Added by:</label> -->
         <input
           required
-          type="text"
+          type="hidden"
           id="added-by"
           class="form-control required-input"
           v-model.lazy="temporalValues.addedBy">
-        <label>Date:</label>
+        <!-- <label>Date:</label> -->
         <input
           required
-          type="date"
+          type="hidden"
           min="2019-01-01"
           max="2030-12-31"
           id="date"
@@ -201,6 +200,7 @@
 <script>
 import axios from "axios";
 import { eventBus } from "../main.js";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Menu",
@@ -230,8 +230,10 @@ export default {
           SYSTEMOWNER: "",
           RADAR: "",
           COMMENTS: "",
+          // ADDEDBY: "Ariana Test",
+          // ADDEDBY: user.data.displayName,
           ADDEDBY: "",
-          DATE: "",
+          DATE: new Date().toISOString().substr(0, 10),
           STATUS: ""
         }
       },
@@ -255,6 +257,18 @@ export default {
     }
   },
 
+  // Not working for a dynamic value in added by
+  // mounted() {
+  //   setTimeout(() => {
+  //     this.newStar.body.ADDEDBY = user.data.displayName
+  //   }, 500)
+  // },
+
+  mounted() {
+    this.newStar.body.ADDEDBY = this.user.data.displayName;
+    // conosle.log(user.data.displayName)
+  },
+
   computed: {
     selectedid() {
       return this.temporalValues.id;
@@ -275,7 +289,11 @@ export default {
       // console.log(array);
     },
     isDisabled () {
-      if (this.newStar.body.NAME.length > 0 && this.newStar.body.LAT.length > 0 && this.newStar.body.LONG.length > 0 && this.newStar.body.ADDEDBY.length > 0 && this.newStar.body.DATE.length > 0) {
+      if (
+        this.newStar.body.NAME.length > 0 && 
+        this.newStar.body.LAT.length > 0 && 
+        this.newStar.body.LONG.length > 0
+      ) {
         return false;
       }  else {
         return true;
@@ -292,7 +310,11 @@ export default {
         return 0;
       }
       return this.stars.sort(compare);
-    }
+    },
+    // Vuex state managment
+    ...mapGetters({
+        user: "user" // map `this.user` to `this.$store.getters.user`
+    }),
   },
 
   methods: {
@@ -317,7 +339,7 @@ export default {
     submit() {
       axios.post('/test/outscapebackend', this.newStar)
       .then(response => {
-    console.log(response)
+    // console.log(response)
     this.submitted = true;
 		})
       .catch(error => {
@@ -376,7 +398,7 @@ export default {
     update() {
       axios.put("/test/outscapebackend", this.temporalUpdatedStar)
         .then(response => {
-          console.log(response)
+          // console.log(response)
           this.updated = true;
         })
         .catch(error => {
@@ -453,7 +475,7 @@ input[type=text], select, textarea {
   margin-right: 30px;
   width: 300px;
   padding: 5px;
-  height: 700px;
+  height: 650px;
   /* overflow-y: scroll; */
 }
 

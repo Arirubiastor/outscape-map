@@ -17,7 +17,7 @@
         <ul class="navbar-nav mr-auto"></ul>
         <ul class="navbar-nav ml-auto">
           <template v-if="user.loggedIn">
-            <div v-if="user" class="alert alert-success" role="alert">{{user.data.displayName}}, You are logged in!
+            <div v-if="user" class="alert alert-success" role="alert">{{ user.data.displayName }}, You are logged in!
               <button class="nav-link sing-out_button" @click.prevent="signOut">Sign out</button>
               <button :disabled="admin" class="nav-link register_button" @click.prevent="$router.push({path: '/register'})">Register</button>
               <!-- <h1>{{ user.data }}</h1> -->
